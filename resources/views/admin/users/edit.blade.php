@@ -4,8 +4,7 @@
 
 @section('content')
   <h1>Edit Users</h1>
-<div class="col-sm-3">
-    <img src="{{ $user->photo ? $user->photo->file : 'http://placehold.it/300X300'}}" alt="" class="img-responsive img-rounded">
+<div class="col-sm-3"> <img src="{{ $user->photo ? $user->photo->file : 'http://placehold.it/300X300'}}" alt="" class="img-responsive img-rounded">
 </div>
 
 

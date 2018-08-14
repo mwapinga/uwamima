@@ -51,7 +51,7 @@ class UsersRequest extends FormRequest
                     'email'=>'required|email|unique:users,email,' . $this->get('id'),
                     'role_id'=>'required' ,
                     'is_active'=>'required' ,
-                    'password'=>'required|confirmed|min:5',
+                    'password'=>'confirmed',
                     'password_confirmation'=>''
                 ];
             }

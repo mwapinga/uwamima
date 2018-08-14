@@ -25,7 +25,7 @@ use App\User;
     @foreach ( $user as $users )
             <tr>
                 <td>{{ $users->id }}</td>
-                <td><img height="50" src="{{ $users->photo?$users->photo->file:'http://placehold.it/400X400' }}" alt=""></td>
+                <td><img height="80" src="{{ $users->photo?$users->photo->file:'http://placehold.it/400X400' }}" alt=""></td>
 
                <td> <a href="{{ URL::to('/admin/user/' . $users->id . '/edit')}}"> {{ $users->name }}</a> </td>
 
