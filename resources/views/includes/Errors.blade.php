@@ -5,9 +5,9 @@
         <ul>
     @foreach ($errors->all() as $error )
        <li>
-               {{ $error }}</li>
+            <p class="bg-danger">  {{ $error }} </p>
+        </li>
     @endforeach
         </ul>
 </div>
-
 @endif

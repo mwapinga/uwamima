@@ -1,5 +1,5 @@
 <?php
-use App\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,9 +11,20 @@ use App\User;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::group(['middleware' => 'auth'], function() {
+  
+  Route::resource('/uwadmin', 'adminhomepage');
+  Route::resource('/uwadminimport', 'importsController');
+  Route::resource('/uwadminexport', 'ExportController');
+  Route::resource('/uwadminsale', 'uwadminsales');
+  Route::resource('/uwadminorder', 'OrderController');
+  Route::resource('/uwadminuser', 'UserController' );
+  Route::get('/search','importsController@result');
+   
 });
 
-Route::resource('/admin/user', 'AdminUsersController');
+
+Auth::routes();
+
 

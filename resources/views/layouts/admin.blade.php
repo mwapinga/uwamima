@@ -1,290 +1,459 @@
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UWAMIMA ADMIN DASHBOARD</title>
+    <!-- Bootstrap -->
+    <link href="{{ asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- slimscroll -->
+    <link href="{{ asset('assets/css/jquery.slimscroll.css') }}" rel="stylesheet">
+    <!-- project -->
+    <link href="{{ asset('assets/css/project.css') }}" rel="stylesheet">
+    <!-- flotCart css -->
+    <link href="{{ asset('assets/css/flotCart.css') }}" rel="stylesheet">
+    <!-- jvectormap -->
+    <link href="{{ asset('assets/css/jqvmap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/buttons.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/responsive.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/fixedHeader.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/simple-line-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/ameffectsanimation.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/buttons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/page-header.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/morris.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/dark-grey.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/main.media.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/adminUIdemo.css') }}" rel="stylesheet">
 
-        <title>Ebenezer</title>
+</head>
 
-        <!-- Bootstrap Core CSS -->
-        <link href="{{ asset('asst/css/bootstrap.min.css') }}" rel="stylesheet">
-
-        <!-- MetisMenu CSS -->
-        <link href="{{ asset('asst/css/metisMenu.min.css') }}" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="{{asset ('asst/css/startmin.css') }}" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href="{{ asset('asst/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-
-    </head>
-    <body>
-
-        <div id="wrapper">
-
-            <!-- Navigation -->
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">Admin</a>
+<body class="page-header-fixed ">
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner ">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="{{ url('/uwadmin') }}"> <img class="logo-default" alt="logo" src="{{ asset('assets/images/logo.png') }}"> </a>
+            </div>
+            <div class="library-menu"> <span class="one">-</span> <span class="two">-</span> <span class="three">-</span> </div><div class="top-nev-mobile-togal"><i class="glyphicon glyphicon-cog"></i></div>
+            <!-- END LOGO -->
+            <div class="top-menu">
+<!--  TOP NAVIGATION MENU -->
+                <div class="hor-menu  hor-menu-light hidden-sm hidden-xs">
+                    <ul class="nav navbar-nav">
+                        <li class="mega-menu-dropdown mega-menu-full hover-initialized"> <a  href="{{ url('/uwadmin') }}"><h3>UWAMIMA CONROL MANAGEMENT SYSTEM DASHBOARD</h3> </a>
                 </div>
+                <!--  TOP NAVIGATION MENU -->
+               
+                <ul class="nav navbar-nav pull-right">
+                   
+                   
+                    <!-- START USER LOGIN DROPDOWN -->
+                    <li class="dropdown dropdown-user">
+                        <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;"> <img src="{{ asset('assets/images/'.Auth::user()->photo->photo_tag ) }}" alt="Photo"> <span class="username username-hide-on-mobile">  {{ Auth::user()->name }} 
+                         </span> <i class="fa fa-angle-down"></i> </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                            <a href="{{ URL::to('uwadminuser/'.Auth::user()->id )}}""> <i class="icon-user"></i> My Profile </a>
 
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <ul class="nav navbar-right navbar-top-links">
-                    <li class="dropdown navbar-inverse">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-bell fa-fw"></i> <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu dropdown-alerts">
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-comment fa-fw"></i> New Comment
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                        <span class="pull-right text-muted small">12 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-tasks fa-fw"></i> New Task
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a class="text-center" href="#">
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
+
+             <a class="ho-dr-con-last waves-effect" class="fa fa-sign-in" aria-hidden="true" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                {{ __('Log Out') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-user fa-fw"></i> john doe <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <!-- END USER LOGIN DROPDOWN -->
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+
+
+
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <!-- Start page sidebar wrapper -->
+        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar">
+                <ul class="page-sidebar-menu  page-header-fixed ">
+                    <br>
+                    <li class="heading">
+                        <h3 class="uppercase">Admin</h3>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-user"></i> <span class="title">Manage User</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminuser') }}">All User</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminuser/create') }}">Manage Permission</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-flask"></i> <span class="title">Components</span> <span class="arrow"></span> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-table"></i> <span class="title">Tables</span> <span class="arrow"></span> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-bar-chart-o"></i> <span class="title">Charts</span> <span class="arrow"></span> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-map"></i> <span class="title">Maps</span> <span class="arrow"></span> </a>
+                    </li>
+                    <li class="heading">
+                        <h3 class="uppercase">Layouts</h3>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title">Page Layouts</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_blank_page.html"> <span class="title">Blank Page</span> </a>
                             </li>
-                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_Boxed_Page.html"> <span class="title">Boxed Page</span> </a>
                             </li>
-                            <li class="divider"></li>
-                            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_footer_fixed.html"> <span class="title">Fixed Footer
+
+                          </span> </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_search_on_header.html"> <span class="title">Search On Header</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_sidebar_closed.html"> <span class="title">Closed Sidebar</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_sidebar_fixed.html"> <span class="title">Fixed Sidebar</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_sidebar_menu_light.html"> <span class="title">Light Sidebar Menu</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_white.html"> <span class="title">White Page</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-paper-plane"></i> <span class="title">Horizontal Menu</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_menu_dark.html"> <span class="title">Dark Horizontal Menu </span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="layout_menu_light.html"> <span class="title">Light Horizontal Menu </span> </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="heading">
+                        <h3 class="uppercase">Pages</h3>
+                    </li>
+                    <li> <a class="nav-link nav-toggle" href="javascript:;"><i class="fa fa-envelope"></i> <span class="title">Mailbox </span><span class="label label-warning pull-right">16/70</span></a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="mailbox.html">Inbox</a></li>
+                            <li class="nav-item"><a class="nav-link" href="mail_detail.html">Email view</a></li>
+                            <li class="nav-item"><a class="nav-link" href="mail_compose.html">Compose email</a></li>
+                            <li class="nav-item"><a class="nav-link" href="email_template.html">Email templates</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendar.html"> <i class="icon-calendar"></i> <span class="title">Calendar</span> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-shopping-cart"></i> <span class="title">E-commerce</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="ecommerce_products_grid1.html">Products grid I</a></li>
+                            <li class="nav-item"><a class="nav-link" href="ecommerce_products_grid2.html">Products grid II </a></li>
+                            <li class="nav-item"><a class="nav-link" href="ecommerce_product_list.html">Products list</a></li>
+                            <li class="nav-item"><a class="nav-link" href="ecommerce_product_detail.html">Product detail</a></li>
+                            <li class="nav-item"><a class="nav-link" href="ecommerce-cart.html">Cart</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-picture-o"></i> <span class="title">Gallery</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="lightbox_gallery.html">Lightbox Gallery</a></li>
+                            <li class="nav-item"><a class="nav-link" href="slick_carousel.html">Slick Carousel</a></li>
+                            <li class="nav-item"><a class="nav-link" href="carousel.html">Bootstrap Carousel</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-desktop"></i> <span class="title">Apps</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                            <li class="nav-item"><a class="nav-link" href="calendar.html">Calendar</a></li>
+                            <li class="nav-item"><a class="nav-link" href="issue_tracker.html">Issue tracker</a></li>
+                            <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="article.html">Article</a></li>
+                            <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="timeline.html"> <span class="title">Timeline</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="timeline_horizontal.html"> <span class="title">Timeline Horizontal</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+               
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-sitemap"></i> <span class="title">Multi Level Menu</span> <span class="arrow "></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> Item 1 <span class="arrow"></span> </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="javascript:;"> Arrow Toggle <span class="arrow nav-toggle"></span> </a>
+                                        <ul class="sub-menu">
+                                            <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
+                                            <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
+                                            <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 2</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 3</a> </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link" href="javascript:;"> Arrow Toggle <span class="arrow nav-toggle"></span> </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link" href="#"> Item 3 </a> </li>
                         </ul>
                     </li>
                 </ul>
-                <!-- /.navbar-top-links -->
-
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <ul class="nav" id="side-menu">
-                            <li class="sidebar-search">
-                                <div class="input-group custom-search-form">
-                                    <input type="text" class="form-control" placeholder="Search...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                                <!-- /input-group -->
-                            </li>
-                            <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i>Users<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="{{ url('admin/user') }}">All Users</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('admin/user/create') }}">Create User</a>
-                                    </li>
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="/posts">All Posts</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="/posts/create">Create Post</a>
-                                    </li>
-
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i>Categories<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="/categories">All Categories</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="/categories/create">Create Category</a>
-                                    </li>
-
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i>Media<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="/media">All Media</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="">Upload Media</a>
-                                    </li>
-
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-
-
-                            <li>
-                                <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                            </li>
-                            <li>
-                                <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="panels-wells.html">Panels and Wells</a>
-                                    </li>
-                                    <li>
-                                        <a href="buttons.html">Buttons</a>
-                                    </li>
-                                    <li>
-                                        <a href="notifications.html">Notifications</a>
-                                    </li>
-                                    <li>
-                                        <a href="typography.html">Typography</a>
-                                    </li>
-                                    <li>
-                                        <a href="icons.html"> Icons</a>
-                                    </li>
-                                    <li>
-                                        <a href="grid.html">Grid</a>
-                                    </li>
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="#">Second Level Item</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Second Level Item</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <li>
-                                                <a href="#">Third Level Item</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Third Level Item</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Third Level Item</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Third Level Item</a>
-                                            </li>
-                                        </ul>
-                                        <!-- /.nav-third-level -->
-                                    </li>
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
-                            <li class="active">
-                                <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-                                </li>
-                        </ul>
-                    </div>
-                    <!-- /.sidebar-collapse -->
-                </div>
-                <!-- /.navbar-static-side -->
-            </nav>
-
-
-            <!-- Page Content -->
-            <div id="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            @yield('content')
-                        </div>
-                        <!-- /.col-lg-12 -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
             </div>
         </div>
 
-        <!-- jQuery -->
-        <script src="{{asset ('asst/js/jquery.min.js') }}"></script>
+                  @yield('content')
+                <!-- start footer -->
+                <div class="footer" style="position: fixed;">
+                    <div class="pull-right">
+                        <ul class="list-inline">
+                            
+                        </ul>
+                    </div>
+                    <div> <strong>Copyright</strong> UWAMIMA ORGANISATION &copy; 2017 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Go top -->
+    <a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
+    <!-- Go top -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ asset('assets/js/vendor/jquery.min.js') }}"></script>
+    <!-- bootstrap js -->
+    <script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/jasny-bootstrap.min.js') }}" charset="UTF-8"></script>
 
-        <!-- Bootstrap Core JavaScript -->
-        <script src="{{asset ('asst/js/bootstrap.min.js') }}"></script>
+    <!--  morris Charts  -->
+    <!-- dataTables-->
+    <script type="text/javascript" src="{{asset('assets/js/vendor/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/dataTables.bootstrap.min.js') }}"></script>
+    <!-- js for print and download -->
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/dataTables.buttons.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/buttons.flash.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/jszip.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/pdfmake.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/vfs_fonts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/buttons.html5.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/buttons.print.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/dataTables.responsive.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/dataTables.fixedHeader.min.js') }}"></script>
 
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="{{ asset('asst/js/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/chartJs/Chart.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/dashboard1.js') }}"></script>
+    <!-- slimscroll js -->
+    <script type="text/javascript" src="{{ asset('assets/js/vendor/jquery.slimscroll.js') }}"></script>
+    <!-- pace js -->
+    <script src="{{ asset('assets/js/vendor/pace/pace.min.js') }}"></script>
+    <!-- Sparkline -->
+  <script src="{{ asset('assets/js/vendor/jquery.sparkline.min.js') }}"></script>
+<!-- main js -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 
-        <!-- Custom Theme JavaScript -->
-        <script src="{{asset ('asst/js/startmin.js') }}"></script>
-        @yield('footer')
-    </body>
+   <script src="{{ asset('assets/js/adminUIdemo.js') }}"></script>
+
+
+<script>
+        var dataSet = [
+            ["Jordan Belfort", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800"],
+["Naomi Lapaglia", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750"],
+["Auckland Straight Line Host", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000"],
+["Donnie Azoff", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060"],
+["Mark Hanna", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700"],
+["Jean-Jacques Saurel", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000"],
+["Patrick Denham", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500"],
+["Teresa Petrillo", "Integration Specialist", "Tokyo", "6200", "2010/10/14", "$327,900"],
+["Brad", "Javascript Developer", "San Francisco", "2360", "2009/09/15", "$205,500"],
+["Max Belfort", "Software Engineer", "Edinburgh", "1667", "2008/12/13", "$103,600"],
+["Manny Riskin", "Office Manager", "London", "3814", "2008/12/19", "$90,560"],
+["Aunt Emma", "Support Lead", "Edinburgh", "9497", "2013/03/03", "$342,000"],
+["Chantalle", "Regional Director", "San Francisco", "6741", "2008/10/16", "$470,600"],
+["Nicky 'Rugrat' Koskoff", "Senior Marketing Designer", "London", "3597", "2012/12/18", "$313,500"],
+["Captain Ted Beecham", "Regional Director", "London", "1965", "2010/03/17", "$385,750"],
+["Leah Belfort", "Marketing Designer", "London", "1581", "2012/11/27", "$198,500"],
+["Toby Welch", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", "$725,000"],
+["Chester Ming", "Systems Administrator", "New York", "1721", "2009/04/10", "$237,500"],
+["Alden 'Sea Otter' Kupferberg", "Software Engineer", "London", "2558", "2012/10/13", "$132,000"],
+["Janet", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", "$217,500"],
+["Robbie ", "Development Lead", "New York", "1937", "2011/09/03", "$345,000"],
+["Steve Madden", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", "$675,000"],
+["Kimmie Belzer", "Pre-Sales Support", "New York", "8330", "2011/12/12", "$106,450"],
+["Hildy Azoff", "Sales Assistant", "Sidney", "3023", "2010/09/20", "$85,600"],
+["Lucas Solomon", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", "$1,200,000"],
+["Honorary Samantha Stogel", "Developer", "Edinburgh", "8822", "2010/12/22", "$92,575"],
+["Nolan Drager", "Regional Director", "Singapore", "9239", "2010/11/14", "$357,650"],
+["Jenette Caldwell", "Software Engineer", "San Francisco", "1314", "2011/06/07", "$206,850"],
+["Jennifer Acosta", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", "$850,000"],
+["Jennifer Chang", "Regional Marketing", "Tokyo", "8899", "2011/08/14", "$163,000"],
+["Jessica E. Summerville", "Integration Specialist", "Sidney", "2769", "2011/06/02", "$95,400"],
+["Jonas Alexander", "Developer", "London", "6832", "2009/10/22", "$114,500"],
+["Lael Greer", "Technical Author", "London", "3606", "2011/05/07", "$145,000"],
+["Martena Mccray", "Team Leader", "San Francisco", "2860", "2008/10/26", "$235,500"],
+["Michael Bruce", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", "$324,050"],
+["Michael Silva", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675"]
+
+        ];
+        $(document).ready(function() {
+            // Flexible table
+
+            $('#example').DataTable();
+
+            // Scroll Horizontal example
+
+            var table = $('#example2').DataTable( {
+                    responsive: true,
+                    paging: false,
+                     fixedHeader: {
+                        headerOffset: 40
+                    }
+                } );
+ 
+ 
+            // Check Click row
+
+            var table = $('#example3').DataTable();
+            $('#example3 tbody').on('click', 'tr', function() {
+                var data = table.row(this).data();
+                alert('You clicked on ' + data[0] + '\'s row');
+            });
+
+
+            // Javascript sourced data table
+
+            $('#example4').DataTable({
+                data: dataSet,
+                columns: [{
+                    title: "Name"
+                }, {
+                    title: "Position"
+                }, {
+                    title: "Office"
+                }, {
+                    title: "Extn."
+                }, {
+                    title: "Start date"
+                }, {
+                    title: "Salary"
+                }]
+            });
+
+            //addRow 
+            var t = $('#example5').DataTable();
+            var counter = 1;
+
+            $('#addRow').on('click', function() {
+                t.row.add([
+                    counter + '.1',
+                    counter + '.2',
+                    counter + '.3',
+                    counter + '.4',
+                    counter + '.5'
+                ]).draw(false);
+
+                counter++;
+            });
+
+
+
+
+            // Individual column searching
+
+            // Setup - add a text input to each footer cell
+            $('#example6 tfoot th').each(function() {
+                var title = $(this).text();
+                $(this).html('<input class="form-control dataSearch" type="text" placeholder="Search ' + title + '" />');
+            });
+
+            // DataTable
+            var table = $('#example6').DataTable();
+
+            // Apply the search
+            table.columns().every(function() {
+                var that = this;
+
+                $('input', this.footer()).on('keyup change', function() {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+
+            // Advanced
+            $('#example7').DataTable({
+                dom: 'Bfrtip',
+                buttons: [{
+                    text: 'copy',
+                    extend: "copy",
+                    className: 'btn dark btn-outline'
+                }, {
+                    text: 'csv',
+                    extend: "csv",
+                    className: 'btn aqua btn-outline'
+                }, {
+                    text: 'excel',
+                    extend: "excel",
+                    className: 'btn aqua btn-outline'
+                }, {
+                    text: 'pdf',
+                    extend: "pdf",
+                    className: 'btn yellow  btn-outline'
+                }, {
+                    text: 'print',
+                    extend: "print",
+                    className: 'btn purple  btn-outline'
+                }]
+            });
+
+
+
+        });
+    </script>
+
+</body>
 </html>
-
-
-
-

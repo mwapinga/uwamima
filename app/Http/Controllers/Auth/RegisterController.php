@@ -10,16 +10,11 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
+
+
+
+
+    
 
     use RegistersUsers;
 
@@ -28,7 +23,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/uwadmin';
 
     /**
      * Create a new controller instance.
@@ -50,6 +45,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
+            'username' => 'string|max:255|unique:users',
+            'gender' => 'required|boolean',
+            'date'  => 'required|date',
+            'adress' => 'required|string|max:255',
+            'phone' => 'required|numeric|phone_number|digits:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -63,9 +63,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name' => $data['name'],
+            'username' => $data['username'],
+            'gender' => $data['gender'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
+            'date' => $data['date'],
+            'adress' => $data['adress'],
             'password' => Hash::make($data['password']),
         ]);
     }
