@@ -8,7 +8,8 @@ class product extends Model
 {
     protected $fillable = ['name'];
 
-       public function product(){
-        return $this->belongsTo('App\product');
-    }
+      public function category(){
+         return $this->has_many('App\category');
+      }
+   
 }

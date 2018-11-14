@@ -1,12 +1,8 @@
- <script src="{{ url('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js') }}"></script>  
-    <script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js') }}"></script>  
-  </head>
 @extends('layouts.admin')
 
 
 
 @section('content')
-
 <div class="page-content-wrapper animated fadeInRight">
 <div class="page-content">
    <div class="row wrapper border-bottom page-heading">
@@ -37,30 +33,42 @@
          </div>
 
          <div class="form-group col-xs-12 col-sm-3">
-                {!! Form::label('product', 'Product Name:') !!}
-                {!! Form::text('product', null, ['class'=>'form-control', 'placeholder'=>'Mbao /Nguzo /Mkaa']) !!}              
-            @if ($errors->has('product'))
+            <label>Product Name</label>
+            <select id="product_id" name="product_id" class="form-control bottom15{{ $errors->has('product_id') ? ' is-invalid' : '' }}">
+                @foreach($product as $index => $prods)
+                <option value="{{ $prods->id }}" > {{ $prods->name }} </option>
+                @endforeach
+              </select>          
+
+            @if ($errors->has('product_id'))
             <div class="alert alert-danger" >
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('product') }}</strong>
+                    <strong>{{ $errors->first('product_id') }}</strong>
                 </span>
                   </div>
             @endif
         
          </div>
-         <div class="form-group col-xs-12 col-sm-3">
 
-               {{--  {!! Form::label('category', 'Category Name:') !!}
-                {!! Form::text('category', null, ['class'=>'form-control']) !!}  --}}
-                <label>Category Name</label>
- <input id="category" placeholder="" type="text" class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" name="category" value="{{ old('category') }}" required>
-            @if ($errors->has('category'))
+         <div class="form-group col-xs-12 col-sm-3">
+         <label>Category Name</label>
+         <select id="category_id" name="category_id" class="form-control">
+               @foreach($category as $index => $cats)
+                <option value="{{ $cats->id }}" > {{ $cats->name }} </option>
+             @endforeach
+         </select> 
+            @if ($errors->has('category_id'))
                   <div class="alert alert-danger" >
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('category') }}</strong>
+                    <strong>{{ $errors->first('category_id') }}</strong>
                 </span>
                </div>
             @endif
+            @if (\Session::has('success'))
+                  <div class="alert alert-danger">
+                  <p>{{ \Session::get('success') }}</p>
+                    </div><br />
+             @endif
 
          </div>  
 
@@ -163,15 +171,3 @@
   </div>
 </div>
 @stop
-
-<script type="text/javascript">
-    var path = "{{ url('/search') }}";
-    $('#category').typeahead({
-         minLength: 2,
-        source:  function (query, process) {
-        return $.get(path, { query: query }, function (data) {
-                return process(data);
-            });
-        }
-    });
-</script>

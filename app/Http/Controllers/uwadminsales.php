@@ -3,28 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\sales;
+use App\purchases;
+use App\product;
+use App\category;
+use App\User;
 
 class uwadminsales extends Controller
 {
-       public function index()
+      public function index()
     { 
 
 
-    $imp = imports::all();
-    return view('admin.sales.index', compact('imp'));
+    $sale = sales::all();
+    return view('admin.sales.index', compact('sale'));
          
     }
         
-        public function resultimpo(Request  $request)
-    {
-        $result=\App\category::where('name', 'LIKE', "%{$request->input('query')}%")->get();
-        $result1=\App\product::where('name', 'LIKE', "%{$request->input('query')}%")->get();
-        $result2=\App\User::where('name', 'LIKE', "%{$request->input('query')}%")->get();
-        $result0=\App\User::where('username', 'LIKE', "%{$request->input('query')}%")->get();
-        $newarray = array($result,$result1, $result2,$result0);
-        return response()->json($newarray);
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -34,9 +29,9 @@ class uwadminsales extends Controller
 
     public function create()
     {   
-         $product = product::pluck('name','id');
-         $category = category::pluck('name','id');
-         return view('admin.sales.create' , compact('user' , 'product' , 'category'));
+         $product = product::all();
+         $category = category::all();
+         return view('admin.sales.create' , compact('product' , 'category'));
     }
 
     /**
@@ -49,42 +44,47 @@ class uwadminsales extends Controller
     {
          $this->validate($request, [
            'name' => 'required|string|max:255|exists:users,name',
-           'product' => 'required|string|max:255|exists:products,name',
-           'category' => 'required|string|max:255|exists:categories,name',
+           'product_id' => 'required',
+           'category_id' => 'required',
            'quantity' => 'required',
            'date' => 'required|date',
-           'drivername'=>'required|string|max:255',
-           'carnumber' => 'required',
-           'intime' => 'required',
-           'outime'=>'required',
+           'price' => 'required',
+           'sold_to'=> 'required|string|max:255|exists:users,name|different:name',
          ]);
 
-           $input = $request->all();
+         $input = $request->all();
+         $input['price'] = $input['quantity'] * $input['price'];
+
+         if(strcasecmp($input['name'], $input['sold_to']) == 0){
+
+             return redirect()->back()->with('error','Buyer should be different To the seller'); 
+         }
+ 
+         $catsid = $input['category_id']; 
+         $prodsid = $input['product_id']; 
          
-         $user = User::where('name', $request['name'])->get()->first();
-         $prods = product::where('name', $request['product'])->get()->first();
-         $cats = category::where('name', $request['category'])->get()->first();
+         $user = User::where('name', $input['name'])->get()->first();
+         $buyer = User::where('name', $input['sold_to'])->get()->first();
+         $buyerID = $buyer->id;
 
-         $input['user_id'] = $user->id;
-         $input['product_id'] = $prods->id;
-         $input['category_id'] = $cats->id;
+         $cats = category::where('id', $catsid )->get()->first();
+         $userId = $user->id;
+         $token = $input['_token'];
+         $catproId = $cats->product_id;
 
-          imports::create([
-            'user_id' => $input['user_id'],
-            'product_id' => $input['product_id'],
-            'category_id' => $input['category_id'],
-            'carnumber' => $input['carnumber'],
-            'drivername' => $input['drivername'],
-            'quantity' => $input['quantity'],
-            'date' => $input['date'],
-            'intime' => $input['intime'],
-            'outime' => $input['outime'],
-        ]);
-  return redirect('uwadminsale')->with('success', 'Sales Added Succesfully');
-
-       
-        
-        
+         if($prodsid != $catproId){     
+          return redirect()->back()->with('success','Invalid Category for Selected Product'); 
+         }
+          unset($input['name']);
+          unset($input['_token']);
+          $output = array('_token' =>$token , 'user_id'=>$userId)+$input;
+  
+         $salez = sales::create($output);
+         purchases::create([
+             'user_id'=>$buyerID, 
+             'sales_id'=>$salez->id,
+          ]);
+        return redirect('uwadminsale')->with('success', 'Sales Added Succesfully');       
     }
 
     /**
@@ -106,9 +106,10 @@ class uwadminsales extends Controller
      */
     public function edit($id)
     {   
-
-    	$imp = sales::findorFail($id);
-         return view('admin.sales.edit', compact('imp'));
+          $product = product::all();
+          $category = category::all();
+          $sale = sales::findorFail($id);
+         return view('admin.sales.edit', compact('sale','product' , 'category'));
     }
 
     /**
@@ -120,46 +121,53 @@ class uwadminsales extends Controller
      */
     public function update(Request $request, $id)
     {    
-
-         $impo= sales::findorfail($id);
-        $this->validate($request, [
+            $sales = sales::findorfail($id);
+     
+    $this->validate($request, [
            'name' => 'required|string|max:255|exists:users,name',
-           'product' => 'required|string|max:255|exists:products,name',
-           'category' => 'required|string|max:255|exists:categories,name',
+           'product_id' => 'required',
+           'category_id' => 'required',
            'quantity' => 'required',
            'date' => 'required|date',
-           'drivername'=>'required|string|max:255',
-           'carnumber' => 'required',
-           'intime' => 'required',
-           'outime'=>'required',
+           'price' => 'required',
+           'sold_to'=> 'required|string|max:255|exists:users,name|different:name',
          ]);
 
          $input = $request->all();
          
-         $user = User::where('name', $request['name'])->get()->first();
-         $prods = product::where('name', $request['product'])->get()->first();
-         $cats = category::where('name', $request['category'])->get()->first();
+           $input['price'] = $input['quantity'] * $input['price'];
 
-         $input['user_id'] = $user->id;
-         $input['product_id'] = $prods->id;
-         $input['category_id'] = $cats->id;
+         if(strcasecmp($input['name'], $input['sold_to']) == 0){
 
-          imports::update([
-            'user_id' => $input['user_id'],
-            'product_id' => $input['product_id'],
-            'category_id' => $input['category_id'],
-            'carnumber' => $input['carnumber'],
-            'drivername' => $input['drivername'],
-            'quantity' => $input['quantity'],
-            'date' => $input['date'],
-            'intime' => $input['intime'],
-            'outime' => $input['outime'],
-        ]);
-           return redirect('uwadminsale')->with('success', 'Sales Edited Succesfully');
+             return redirect()->back()->with('error','Buyer should be different To the seller'); 
+         }
 
+         $catsid = $input['category_id']; 
+         $prodsid = $input['product_id']; 
 
+         $user = User::where('name', $input['name'])->get()->first();
+         $buyer = User::where('name', $input['sold_to'])->get()->first();
+         $buyerID = $buyer->id;
+
+         $cats = category::where('id', $catsid )->get()->first();
+         $userId = $user->id;
+         $token = $input['_token'];
+         $catproId = $cats->product_id;
+
+         if($prodsid != $catproId){     
+          return redirect()->back()->with('success','Invalid Category for Selected Product'); 
+         }
+          unset($input['name']);
+          unset($input['_token']);
+          $output = array('_token' =>$token , 'user_id'=>$userId)+$input;
+  
+         $sales->update($output);
+          $purchases = purchases::where('sales_id', $id)->get()->first();
+         $purchases->update([
+             'user_id'=>$buyerID,
+          ]);
+        return redirect('uwadminsale')->with('success', 'Sales Edited Succesfully');      
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -168,8 +176,8 @@ class uwadminsales extends Controller
      */
     public function destroy($id)
     {
-          $impo= sales::findorfail($id);   
-          $impo->delete();
+          $sale= sales::findorfail($id);   
+          $sale->delete();
           return redirect('uwadminsale')->with('success', 'Sales Deleted Succesfully');
     }
     

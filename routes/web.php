@@ -20,9 +20,9 @@ Route::group(['middleware' => 'auth'], function() {
   Route::resource('/uwadminsale', 'uwadminsales');
   Route::resource('/uwadminorder', 'OrderController');
   Route::resource('/uwadminuser', 'UserController' );
-  Route::get('/search','importsController@result');
-   
+  Route::resource('/permission', 'permissionController');
 });
+Route::resource('/hasharea', 'hashkeyController');
 
 
 Auth::routes();

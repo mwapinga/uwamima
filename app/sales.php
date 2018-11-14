@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class sales extends Model
 {
-    protected $fillable = ['date','price',];
+    protected $fillable = ['date','price','category_id','product_id','user_id','quantity','sold_to'];
     public function category(){
         return $this->belongsTo('App\category');
     }

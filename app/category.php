@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class category extends Model
 {
-    protected $fillable =['name'];
+       protected $fillable =['name','product_id'];
 
-   public function prodable(){
-
-    return $this->morphTo();
-
-   }
+         public function products(){
+         return $this->belongs_to('App\product');
+      }
 
 }

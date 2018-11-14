@@ -12,7 +12,12 @@
                 <h5>ALL EXPORTS</h5>
               </div>
               <BR>
-              <button class="btn aqua btn-outline" type="button"><a href="{{ url('uwadminexport/create') }}"> ADD EXPORT</a></button>
+              <button class="btn aqua btn-outline" type="button"><a href="{{ url('uwadminimport/create') }}"> ADD EXPORT</a></button>
+                   @if (\Session::has('success'))
+                                       <div class="alert alert-success">
+                                      <p>{{ \Session::get('success') }}</p>
+                                      </div><br />
+                  @endif
               <div class="ibox-content collapse in">
                 <div class="widgets-container">
                   <div >
@@ -20,6 +25,7 @@
                       <thead>
                        <tr>            <th>No. </th>
                                        <th>Owner</th>
+                                       <th>UserName</th>
                                        <th>Product</th>
                                        <th>Type</th>
                                        <th>Date</th>
@@ -32,51 +38,27 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                       <td>Ismail mkombwe</td>
-                                       <td>Timber</td>
-                                       <td>2x3</td>
-                                       <td>10/02/2018</td>
-                                       <td>400</td>
-                                       <td>T345 ADY</td>
-                                       <td>John Limo</td>
-                                       <td>12:00</td>
-                                       <td>13:00</td>
+                          @if ($exp)
+                         @foreach ( $exp as $index => $expos )
+                 
+                                        <td>{{ $index+1 }}</td>
+                                       <td>{{ ucfirst($expos->user->name) }}</td>
+                                       <td>{{ ucfirst($expos->user->username) }}</td>
+                                       <td>{{ $expos->product->name }}</td>
+                                       <td>{{ $expos->category->name }}</td>
+                                       <td>{{ $expos->date }}</td>
+                                       <td>{{ $expos->quantity }}</td>
+                                       <td>{{ ucwords($expos->carnumber) }}</td>
+                                       <td>{{ ucfirst($expos->drivername) }}</td>
+                                       <td>{{ $expos->intime }}</td>
+                                       <td>{{ $expos->outime }}</td>
                                      <td>
-                                          <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminexport/edit')}}"> Edit import</a> </button>
-                                            </td>
+                                      <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminexport/'.$expos->id .'/edit')}}"> Edit Export</a> </button>
+                                   </td>
                                     </tr>
-                                     <tr>
-                                        <td>2</td>
-                                       <td>godlove shirima</td>
-                                       <td>Timber</td>
-                                       <td>2x5</td>
-                                       <td>14/6/2019</td>
-                                       <td>340</td>
-                                       <td>T453 AJT</td>
-                                       <td>CHAMA CHIKU</td>
-                                       <td>14:00</td>
-                                       <td>18:00</td>
-                                       <td>
-                                          <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminexport/edit')}}"> Edit import</a> </button>
-                                            </td>
-                                    </tr>
-                                     <tr>
-                                        <td>3</td>
-                                       <td>james msigwa</td>
-                                       <td>Stream</td>
-                                       <td>Electrick</td>
-                                       <td>10/02/2018</td>
-                                       <td>34</td>
-                                       <td>T546 RHY</td>
-                                       <td>Pizzo Limo</td>
-                                       <td>15:00</td>
-                                       <td>16:00</td>
-                                <td>
-                                          <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminexport/edit')}}"> Edit import</a> </button>
-                                            </td>
-                                    </tr>
+                     @endforeach
+                      @endif
+                                    
                       </tbody>
                     </table>
                   </div>
@@ -88,9 +70,8 @@
       </div>
       </div>
     </div> 
-
-
  @stop
+ 
     <script>
         var dataSet = [
             ["Jordan Belfort", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800"],

@@ -6,11 +6,13 @@
      <div class="row">
           <div class="col-lg-12">
             <div class="ibox float-e-margins">
-              <div class="ibox-title">
-    
 
+
+              <div class="ibox-title">
                 <h5>Users </h5>
              </div>
+             <hr>
+            <a href="{{ URL::to('permission/create')}}" class="btn btn-block btn-info"><i class="glyphicon glyphicon-add" aria-hidden="true"></i>ADD NEW USER </a>
    <hr >
     @if (\Session::has('success'))
    <div class="alert alert-success">
@@ -23,7 +25,7 @@
     <thead>
         <tr>
          <th>Id</th>
-         <th>Photo</th>
+        {{--  <th>Photo</th> --}}
          <th>Name</th>
          <th>Username</th>
          <th>Email</th>
@@ -33,9 +35,7 @@
          <th>Living Area</th>
          <th>Role</th>
          <th>Status</th>
-         <th>created</th>
-         <th>updated</th>
-         <th>Profile</th>
+         <th>Permission</th>
         </tr>
     </thead>
     <tbody>
@@ -43,12 +43,13 @@
     @foreach ( $user as $index => $users )
             <tr>
                 <td>{{ $index + 1 }}</td>
-                @if($users->photo)
-                <td><img height="50" src="{{ asset('assets/images/'.$users->photo->photo_tag) }}" alt="User photo"></td>
-                @else
-                <td>No Photo</td>
-                @endif
-                <td> <a href="{{ URL::to('/admin/user/' . $users->id . '/edit')}}"> {{ $users->name }}</a> </td>
+               {{--  <td> 
+                 @if ($users->photo)
+                      <img height="50" src="{{ asset('assets/images/'.$users->photo->photo_tag ) }}" alt="Photo"> 
+                 @else 
+                  <img src="{{ asset('assets/images/user.jpg' ) }}" alt="No Photo"> 
+                 @endif</td> --}}
+                <td>  {{ $users->name }} </td>
                 <td>{{ $users->username?$users->username: "No Username" }}</td>
                 <td>{{ $users->email }}</td>
                 <td>{{ $users->phone }}</td>
@@ -56,14 +57,14 @@
                 <td>{{ $users->borndate }}</td>
                 <td>{{ $users->adress }}</td>
                 <td>{{ $users->role->name }}</td>
-                <td>{{ $users->status == 1 ? 'Active': 'Not Active' }}</td>
-                <td>{{ $users->created_at->diffForHumans() }}</td>
-                <td>{{ $users->updated_at->diffForHumans()  }}</td>
-                <td> 
-                     {!! Form::open(['method'=>'DELETE','action'=> ['UserController@destroy',$users->id]]) !!}  
-                     {!! Form::submit('DELETE USER', ['class'=>'btn red btn','glyphicon glyphicon-delete']) !!}
-                     {!! Form::close() !!}
-                </td>
+                <td>
+                 @if ($users->status)
+                     <a class="btn btn-xs aqua"><i class="glyphicon glyphicon-ok"></i> Active</a>
+                    @else
+                    <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Not_Active</a>
+                    @endif 
+                </td> 
+                <td> <a href="{{ URL::to('permission/' . $users->id . '/edit')}}" class="btn btn-block btn-success"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>Edit Permission</a> </td>
             </tr>
     @endforeach
     @endif

@@ -30,7 +30,7 @@
     <link href="{{ asset('assets/css/morris.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/dark-grey.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/main.media.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/adminUIdemo.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/adminUIdemo.css') }}" rel="stylesheet">s
 
 </head>
 
@@ -57,7 +57,14 @@
                    
                     <!-- START USER LOGIN DROPDOWN -->
                     <li class="dropdown dropdown-user">
-                        <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;"> <img src="{{ asset('assets/images/'.Auth::user()->photo->photo_tag ) }}" alt="Photo"> <span class="username username-hide-on-mobile">  {{ Auth::user()->name }} 
+                        <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+                         @if (Auth::user()->photo)
+                              <img src="{{ asset('assets/images/'.Auth::user()->photo->photo_tag ) }}" alt="Photo"> 
+                         @else 
+                          <img src="{{ asset('assets/images/user.jpg' ) }}" alt="No Photo"> 
+                         @endif
+                        
+                         <span class="username username-hide-on-mobile">  {{ Auth::user()->name }} 
                          </span> <i class="fa fa-angle-down"></i> </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
@@ -101,57 +108,58 @@
                     <li class="nav-item">
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-user"></i> <span class="title">Manage User</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminuser') }}">All User</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminuser/create') }}">Manage Permission</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('permission') }}">All User</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('permission') }}">Manage Permission</a></li>
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-flask"></i> <span class="title">Components</span> <span class="arrow"></span> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-table"></i> <span class="title">Tables</span> <span class="arrow"></span> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-bar-chart-o"></i> <span class="title">Charts</span> <span class="arrow"></span> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-map"></i> <span class="title">Maps</span> <span class="arrow"></span> </a>
-                    </li>
-                    <li class="heading">
-                        <h3 class="uppercase">Layouts</h3>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title">Page Layouts</span> <span class="arrow"></span> </a>
+                   <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-long-arrow-left"></i> <span class="title">Manage Imports</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_blank_page.html"> <span class="title">Blank Page</span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_Boxed_Page.html"> <span class="title">Boxed Page</span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_footer_fixed.html"> <span class="title">Fixed Footer
-
-                          </span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_search_on_header.html"> <span class="title">Search On Header</span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_sidebar_closed.html"> <span class="title">Closed Sidebar</span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_sidebar_fixed.html"> <span class="title">Fixed Sidebar</span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_sidebar_menu_light.html"> <span class="title">Light Sidebar Menu</span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_white.html"> <span class="title">White Page</span> </a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminimport') }}">All Imports</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminimport/create') }}">Add Import</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminimport/create') }}">Imports Reports</a></li>
                         </ul>
                     </li>
+                   <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-long-arrow-right"></i> <span class="title">Manage Exports</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminexport') }}">All Exports</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminexport/create') }}">Add Export</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminexport/create') }}">Exports Reports</a></li>
+                        </ul>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-exchange"></i> <span class="title">Manage Sales</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminsale') }}">All Sales</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminsale/create') }}">Add Sale</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminsale/create') }}">Sales Reports</a></li>
+                        </ul>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-align-center"></i> <span class="title">Manage Orders</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminorder') }}">All Oders</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminorder/create') }}">Add Oder</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminorder/create') }}">Oders Reports</a></li>
+                        </ul>
+                    </li>
+                <li class="heading">
+                        <h3 class="uppercase">Layouts</h3>
+                 </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title"> Slider</span> <span class="arrow"></span> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title"> Portfolio</span> <span class="arrow"></span> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title"> Testamony</span> <span class="arrow"></span> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title"> Orders</span> <span class="arrow"></span> </a>
+                </li>
                     <li class="nav-item">
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-paper-plane"></i> <span class="title">Horizontal Menu</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
@@ -176,41 +184,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="calendar.html"> <i class="icon-calendar"></i> <span class="title">Calendar</span> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-shopping-cart"></i> <span class="title">E-commerce</span> <span class="arrow"></span> </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="ecommerce_products_grid1.html">Products grid I</a></li>
-                            <li class="nav-item"><a class="nav-link" href="ecommerce_products_grid2.html">Products grid II </a></li>
-                            <li class="nav-item"><a class="nav-link" href="ecommerce_product_list.html">Products list</a></li>
-                            <li class="nav-item"><a class="nav-link" href="ecommerce_product_detail.html">Product detail</a></li>
-                            <li class="nav-item"><a class="nav-link" href="ecommerce-cart.html">Cart</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-picture-o"></i> <span class="title">Gallery</span> <span class="arrow"></span> </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="lightbox_gallery.html">Lightbox Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="slick_carousel.html">Slick Carousel</a></li>
-                            <li class="nav-item"><a class="nav-link" href="carousel.html">Bootstrap Carousel</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-desktop"></i> <span class="title">Apps</span> <span class="arrow"></span> </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
-                            <li class="nav-item"><a class="nav-link" href="calendar.html">Calendar</a></li>
-                            <li class="nav-item"><a class="nav-link" href="issue_tracker.html">Issue tracker</a></li>
-                            <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                            <li class="nav-item"><a class="nav-link" href="article.html">Article</a></li>
-                            <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="timeline.html"> <span class="title">Timeline</span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="timeline_horizontal.html"> <span class="title">Timeline Horizontal</span> </a>
-                            </li>
-                        </ul>
                     </li>
                
                     <li class="nav-item">
@@ -246,13 +219,15 @@
 
                   @yield('content')
                 <!-- start footer -->
-                <div class="footer" style="position: fixed;">
+               <div class="footer" style="position: fixed;">
                     <div class="pull-right">
                         <ul class="list-inline">
                             
                         </ul>
                     </div>
-                    <div> <strong>Copyright</strong> UWAMIMA ORGANISATION &copy; 2017 </div>
+                    <div> <strong>Copyright</strong> UWAMIMA ORGANISATION &copy; @php
+                       echo  date("Y") 
+                    @endphp </div>
                 </div>
             </div>
         </div>
@@ -294,6 +269,7 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
    <script src="{{ asset('assets/js/adminUIdemo.js') }}"></script>
+
 
 
 <script>
@@ -363,23 +339,32 @@
 
             // Javascript sourced data table
 
-            $('#example4').DataTable({
+             $('#example4').DataTable({
                 data: dataSet,
                 columns: [{
-                    title: "Name"
+                    title: "No."
                 }, {
-                    title: "Position"
+                    title: "Owner"
                 }, {
-                    title: "Office"
+                    title: "Product"
                 }, {
-                    title: "Extn."
+                    title: "Type"
                 }, {
-                    title: "Start date"
+                    title: "Date."
                 }, {
-                    title: "Salary"
+                    title: "Amount"
+                }, {
+                    title: "Car T No."
+                }, {
+                    title: "Driver Name"
+                }, {
+                    title: "In Time"
+                }, {
+                    title: "Out Time"
+                }, {
+                    title: "Edit Option"
                 }]
             });
-
             //addRow 
             var t = $('#example5').DataTable();
             var counter = 1;

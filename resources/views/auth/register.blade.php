@@ -45,7 +45,7 @@
         @if ($errors->has('name'))
          <div class="alert alert-danger" > 
            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors-></strong>first('name') }}</strong>
+                <strong>{{ $errors->first('name') }}</strong>
             </span>
           </div>
         @endif
@@ -67,7 +67,7 @@
       <div class="form-group">
                 <p>*Gender</p>
                 <div class="col-sm-14">
-                  <select id="gender" name="gender" placeholder="*Gender" class="form-control bottom15{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="account">
+                  <select id="gender" name="gender" placeholder="*Gender" class="form-control bottom15{{ $errors->has('gender') ? ' is-invalid' : '' }}" required >
                     <option value="1" > Male</option>
                     <option value="0">Female</option>
                   </select>
@@ -86,12 +86,12 @@
 
      <div class="form-group">
                          <p>*Born Date (mm/dd/yy)</p> 
-                          {!! Form::date('date',null , ['class'=>'form-control','required']) !!}  
+                          {!! Form::date('borndate',null , ['class'=>'form-control','required']) !!}  
                                             
-                         @if($errors->has('date'))
+                         @if($errors->has('borndate'))
                            <div class="alert alert-danger" >
                           <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('date') }}</strong>
+                          <strong>{{ $errors->first('borndate') }}</strong>
                             </span>
                            </div>                     
                          @endif 
@@ -160,7 +160,9 @@
       <p class="text-muted text-center"><small>Already have an account?</small></p>
       <a href="{{ url('/login') }}" class="btn btn-sm btn-white btn-block">Login</a>
     </form>
-    <p class="top15"> <small>UWAMIMA All Rigths Reserved &copy; 2018</small> </p>
+    <p class="top15"> <small>UWAMIMA All Rigths Reserved &copy;  @php
+                       echo  date("Y") 
+                    @endphp </small> </p>
   </div>
 </div>
 </body>

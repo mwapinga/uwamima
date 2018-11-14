@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\exports;
 use App\User;
 use App\product;
@@ -19,15 +20,6 @@ class ExportController extends Controller
          
     }
         
-        public function resultimpo(Request  $request)
-    {
-        $result=\App\category::where('name', 'LIKE', "%{$request->input('query')}%")->get();
-         // $result1=\App\product::where('name', 'LIKE', "%{$request->input('query')}%")->get();
-         //  $result2=\App\User::where('name','username', 'LIKE', "%{$request->input('query')}%")->get();
-
-        return response()->json($result);
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -37,8 +29,9 @@ class ExportController extends Controller
 
     public function create()
     {   
-         
-         return view('admin.exports.create');
+         $product = product::all();
+         $category = category::all();
+         return view('admin.exports.create' , compact('product' , 'category'));
     }
 
     /**
@@ -51,8 +44,8 @@ class ExportController extends Controller
     {
          $this->validate($request, [
            'name' => 'required|string|max:255|exists:users,name',
-           'product' => 'required|string|max:255|exists:products,name',
-           'category' => 'required|string|max:255|exists:categories,name',
+           'product_id' => 'required',
+           'category_id' => 'required',
            'quantity' => 'required',
            'date' => 'required|date',
            'drivername'=>'required|string|max:255',
@@ -60,32 +53,26 @@ class ExportController extends Controller
            'intime' => 'required',
            'outime'=>'required',
          ]);
-   $input = $request->all();
-         
+
+         $input = $request->all();
+         $catsid = $input['category_id']; 
+         $prodsid = $input['product_id']; 
+
          $user = User::where('name', $input['name'])->get()->first();
-         $prods = product::where('name', $input['product'])->get()->first();
-         $cats = category::where('name', $input['category'])->get()->first();
-
-
+         $cats = category::where('id', $catsid )->get()->first();
          $userId = $user->id;
-         $prodId = $prods->id;
-         $catId = $cats->id;
          $token = $input['_token'];
-         
-           unset($input['name']);
-            unset($input['product']);
-            unset($input['category']);
-            unset($input['_token']);
+         $catproId = $cats->product_id;
 
-         $output1 = array('user_id' =>$userId , 'product_id'=>$prodId, 'category_id'=>$catId)+$input;
-         $output2 = array('_token' =>$token)+$output1;
-
-         exports::create($output2);
-  return redirect('uwadminexport')->with('success', 'Exports Added Succesfully');
-
-       
-        
-        
+         if($prodsid != $catproId){     
+          return redirect()->back()->with('success','Invalid Category for Selected Product'); 
+         }
+          unset($input['name']);
+          unset($input['_token']);
+          $output = array('_token' =>$token , 'user_id'=>$userId)+$input;
+  
+          exports::create($output);
+         return redirect('uwadminexport')->with('success', 'Exports Added Succesfully');       
     }
 
     /**
@@ -107,9 +94,10 @@ class ExportController extends Controller
      */
     public function edit($id)
     {   
-
-    	$exp = exports::findorFail($id);
-         return view('admin.exports.edit', compact('exp'));
+         $product = product::all();
+         $category = category::all();
+         $exp = exports::findorFail($id);
+         return view('admin.exports.edit', compact('exp','product','category'));
     }
 
     /**
@@ -121,12 +109,12 @@ class ExportController extends Controller
      */
     public function update(Request $request, $id)
     {    
+             $exp = exports::findorfail($id);
 
-         $exp= exports::findorfail($id);
-        $this->validate($request, [
+          $this->validate($request, [
            'name' => 'required|string|max:255|exists:users,name',
-           'product' => 'required|string|max:255|exists:products,name',
-           'category' => 'required|string|max:255|exists:categories,name',
+           'product_id' => 'required',
+           'category_id' => 'required',
            'quantity' => 'required',
            'date' => 'required|date',
            'drivername'=>'required|string|max:255',
@@ -134,29 +122,26 @@ class ExportController extends Controller
            'intime' => 'required',
            'outime'=>'required',
          ]);
-          $input = $request->all();
-         
+
+         $input = $request->all();
+         $catsid = $input['category_id']; 
+         $prodsid = $input['product_id']; 
+
          $user = User::where('name', $input['name'])->get()->first();
-         $prods = product::where('name', $input['product'])->get()->first();
-         $cats = category::where('name', $input['category'])->get()->first();
-
-
+         $cats = category::where('id', $catsid )->get()->first();
          $userId = $user->id;
-         $prodId = $prods->id;
-         $catId = $cats->id;
          $token = $input['_token'];
-         
-           unset($input['name']);
-            unset($input['product']);
-            unset($input['category']);
-            unset($input['_token']);
+         $catproId = $cats->product_id;
 
-         $output1 = array('user_id' =>$userId , 'product_id'=>$prodId, 'category_id'=>$catId)+$input;
-         $output2 = array('_token' =>$token)+$output1;
-
-         exports::update($output2);
-           return redirect('uwadminexport')->with('success', 'exports Edited Succesfully');
-
+         if($prodsid != $catproId){     
+          return redirect()->back()->with('success','Invalid Category for Selected Product'); 
+         }
+          unset($input['name']);
+          unset($input['_token']);
+          $output = array('_token' =>$token , 'user_id'=>$userId)+$input;
+  
+          $exp->update($output);
+         return redirect('uwadminexport')->with('success', 'Exports Edited Succesfully'); 
 
     }
 
@@ -168,9 +153,9 @@ class ExportController extends Controller
      */
     public function destroy($id)
     {
-          $exp= exports::findorfail($id);   
-          $exp->delete();
-          return redirect('uwadminexport')->with('success', 'Imports Deleted Succesfully');
+          $impo= exports::findorfail($id);   
+          $impo->delete();
+          return redirect('uwadminexport')->with('success', 'Export Deleted Succesfully');
     }
     
 }

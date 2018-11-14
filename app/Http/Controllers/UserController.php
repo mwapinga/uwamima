@@ -9,6 +9,8 @@ use App\Http\Requests\UsersRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -17,11 +19,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        // this is for changing password for user 
+
     public function index()
     {
-          $user= User::all();
-          return view('admin.user.index',compact('user') );
-
+ 
+     return view('admin.user.chpp');
 
     }
 
@@ -37,9 +40,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+      // i used this for the photo upload since its doen after register 
     public function store(Request $request)
 
-    {
+    {   
+          $this->validate($request, [
+           'photo_id' => 'required',
+         ]);
          $id = Auth::User()->id;
          $user = User::findorfail($id);
          $input = $request->all();
@@ -70,9 +77,7 @@ class UserController extends Controller
     {
 
         $user = User::findOrFail($id);
-        return view('admin.user.show' , compact('user'));
-
-        
+        return view('admin.user.show' , compact('user'));      
     }
 
     /**
@@ -86,7 +91,6 @@ class UserController extends Controller
 
 
         $user = User::findOrFail($id);
-        $roles= Role::findorfail($user->role_id);
         return view('admin.user.edit' , compact('user','roles'));
 
     }
@@ -98,31 +102,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UsersRequest $request, $id)
-    {
-           $user= User::findorfail($id);
+        public function update(Request $request, $id)
+        {
+               $user= User::findorfail($id);
+              $this->Validate($request, [
+            'name' => 'required|string|max:255',
+            'username' => 'required|string',Rule::unique('users')->ignore($user->id),
+            'gender' => 'required|boolean',
+            'borndate'  => 'required|date',
+            'adress' => 'required|string|max:255',
+            'phone' => 'required|numeric|digits:10',
+        ]);
 
-         $input = $request->all();
-     
-        if($file = $request->file('photo_id'))
-        {  
-            if (file_exists(public_path()."\assets\images\\". $user->photo->photo_tag)) {
-              unlink(public_path()."\assets\images\\". $user->photo->photo_tag);
-              $photos = photo::findorfail($user->photo_id);
-              $photos->delete();
-            }
-              
-             $name = rand(11111,99999).'_'.time() .'_'. $file->getClientOriginalName();
-             $file->move('assets/images/', $name);
-             $thumbnailpath = public_path('assets/images/'.$name);  
-             $img = Image::make($thumbnailpath)->resize(60,60)->save($thumbnailpath);   
-            $photo = photo::create(['photo_tag'=> $name]);
-            $input['photo_id']=$photo->id;
-        }
+             $input = $request->all();  
 
-         $user->update($input);
-
-        return redirect('uwadminuser')->with('success', 'User Edited Succesfully'); 
+             $user->update($input);
+             return redirect('uwadminuser')->with('success', 'User Edited Succesfully'); 
     }
 
     /**
@@ -131,13 +126,31 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    
+        // I used this for udating password Boss
+    public function destroy(Request $request, $id)
     {
        
-        $user= User::findorfail($id);
-        unlink(public_path(). "assets/images/". $user->photo->photo_tag );
-        $user->delete();
-        return redirect('uwadminuser')->with('success', 'User Deleted Succesfully'); 
+            $this->validate($request, [
+             'old_password' =>'required',
+             'password' => 'required|string|min:6|confirmed',
+              ]);
+
+              $users = Auth::user();
+              $input = $request->all();
+              $password = $input['old_password'];
+              $email = Auth::user()->email;
+
+               if (Auth::attempt(['email' => $email, 'password' => $password])) {
+                    unset($input['old_password']);
+                    $users->update([
+                         'password'=>Hash::make($input['password'])
+                        ]);
+
+                return redirect('uwadminuser/'.Auth::user()->id)->with('success', 'Password Changed Succesfully');
+               }
+
+        return redirect('uwadminuser')->with('success', 'You Entered wrong Password');
 
     }
 }

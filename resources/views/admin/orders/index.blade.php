@@ -9,9 +9,10 @@
           <div class="col-lg-12">
             <div class="ibox float-e-margins">
               <div class="ibox-title">
-                <h5>ALL ORDERS</h5>
+                <h5>ALL ORDER</h5>
               </div>
               <BR>
+              <button class="btn aqua btn-outline" type="button"><a href="{{ url('uwadminimport/create') }}"> Manage Order</a></button>
                    @if (\Session::has('success'))
                                        <div class="alert alert-success">
                                       <p>{{ \Session::get('success') }}</p>
@@ -22,84 +23,42 @@
                   <div >
                     <table id="example7" class="display nowrap table  responsive nowrap table-bordered">
                       <thead>
-                        <tr>
-                          <th> # </th>
-                          <th> First Name </th>
-                          <th> Last Name </th>
-                          <th> Email </th>
-                          <th> Order No </th>
-                          <th> Status </th>
-                          <th> View Order </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td> 1 </td>
-                          <td> Mark </td>
-                          <td> Otto </td>
-                          <td> makr124@gmail.com </td>
-                          <td>#433384001</td>
-                           <td><span class="label label-sm label-danger"> Unprocessed </span> </td>
-                           <td>
-                          <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminorder/show')}}"> View Order</a> </button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td> Jacob </td>
-                          <td> Nilson </td>
-                          <td> jac123@gmail.com </td>
-                          <td>#433384001</td>
-                         <td><span class="label label-sm label-danger"> Unprocessed </span> </td>
-                         <td>
-                    <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminorder/show')}}"> View Order</a> </button>
-                      </td>
-                        </tr>
-                        <tr>
-                          <td> 3 </td>
-                          <td> Larry </td>
-                          <td> Cooper </td>
-                          <td> lar@gmail.com </td>
-                          <td>#433384001</td>
-                          <td><span class="label label-sm label-danger"> Unprocessed </span> </td>
-                          <td>
-                        <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminorder/show')}}"> View Order</a> </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td> 4 </td>
-                          <td> Sandy </td>
-                          <td> Lim </td>
-                          <td> sanlim@gmail.com </td>
-                          <td>#433384001</td>
-                          <td><span class="label label-sm label-danger"> Unprocessed </span> </td>
-                          <td>
-                        <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminorder/show')}}"> View Order</a> </button>
-                          </td>
-                        </tr>
-                          <tr>
-                          <td> 5 </td>
-                          <td> candy </td>
-                          <td> mwinyi </td>
-                          <td> limdn@gmail.com </td>
-                          <td>#43333424001</td>
-                          <td><span class="label label-sm label-success">Processed </span> </td>
-                          <td>
-                        <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminorder/show')}}"> View Order</a> </button>
-                          </td>
-                        </tr>
-                          <tr>
-                          <td> 6 </td>
-                          <td> Willy </td>
-                          <td> Kim </td>
-                          <td> Kimnana@gmail.com </td>
-                          <td>#4333384001</td>
-                          <td><span class="label label-sm label-success">Processed </span> </td>
-                          <td>
-                        <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminorder/show')}}"> View Order</a> </button>
-                          </td>
-                        </tr>
+                       <tr>            <th>No. </th>
+                                       <th>Owner</th>
+                                       <th>UserName</th>
+                                       <th>Product</th>
+                                       <th>Type</th>
+                                       <th>Date</th>
+                                       <th>Amount</th>
+                                       <th>Car T No.</th>
+                                       <th>Driver Name</th>
+                                       <th>In Time</th>
+                                       <th>Out Time</th>
+                                       <th>Edit Option</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                          @if ($ord)
+                         @foreach ( $ord as $index => $order )
+                 
+                                        <td>{{ $index+1 }}</td>
+                                       <td>{{ $order->user->name }}</td>
+                                       <td>{{ $order->user->username }}</td>
+                                       <td>{{ $order->product->name }}</td>
+                                       <td>{{ $order->category->name }}</td>
+                                       <td>{{ $order->date }}</td>
+                                       <td>{{ $order->quantity }}</td>
+                                       <td>{{ $order->carnumber }}</td>
+                                       <td>{{ $order->drivername }}</td>
+                                       <td>{{ $order->intime }}</td>
+                                       <td>{{ $order->outime }}</td>
+                                     <td>
+                                      <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminimport/'.$expos->id .'/edit')}}"> Edit import</a> </button>
+                                   </td>
+                                    </tr>
+                     @endforeach
+                      @endif
+                                    
                       </tbody>
                     </table>
                   </div>
@@ -111,9 +70,8 @@
       </div>
       </div>
     </div> 
-
-
  @stop
+ 
     <script>
         var dataSet = [
             ["Jordan Belfort", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800"],

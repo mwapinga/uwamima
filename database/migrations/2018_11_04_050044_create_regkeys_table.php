@@ -16,6 +16,8 @@ class CreateRegkeysTable extends Migration
         Schema::create('regkeys', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key');
+            $table->string('email')->unique();
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login UWAMIMA DASHBOARD</title>
+  <title> key**UWAMIMA DASHBOARD</title>
   <!-- Bootstrap -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet">
   <!-- slimscroll -->
@@ -38,13 +38,17 @@
   <div class="middle-box text-center loginscreen ">
     <div class="widgets-container">
       <div class="bottom20"> <img alt="image" class="img-circle circle-border" src="assets/images/user.jpg"> </div>
-          <h2>Welcome To UWAMIMA</h2>
-            <h4>Please Login </h4>
-           <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                <div class="form-group">
+      <h3> No  Account </h3>
+       @if (\Session::has('error'))
+           <div class="alert alert-danger">
+          <p>{{ \Session::get('error') }}</p>
+          </div><br />
+        @endif
+      <p>Please Enter Your Email And the Key</p>
+      <p>To Get Started</p>
+            {!! Form::open(['method'=>'POST','action'=> 'hashkeyController@store']) !!}
                       <div class="form-group">
-    <input id="email" type="email"  placeholder="Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"  required autofocus >               
+          <input id="email" type="email"  placeholder="Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"     required autofocus >               
                                 @if ($errors->has('email'))
                                 <div class="alert alert-danger" >
                                     <span class="invalid-feedback">
@@ -53,33 +57,21 @@
                                 </div>  
                                 @endif             </div>
                 <div class="form-group">
-                               <input id="password"  placeholder="Password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"  name="password" required>
+                               <input id="key"  placeholder="Key   *****************" type="text" class="form-control{{ $errors->has('key') ? ' is-invalid' : '' }}"  name="key" required>
                                
-                                @if ($errors->has('password'))
+                                @if ($errors->has('key'))
                                 <div class="alert alert-danger" >
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('key') }}</strong>
                                     </span>
                                     </div> 
-                                @endif               </div>
-                  {{-- 
-                       <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div> --}}
-                  <button class="btn aqua block full-width bottom15" type="submit">Login</button>
-                <a href="{{ route('password.request') }}"><small>Forgot password?</small></a>
-                <p class="text-muted text-center"><small>Do not have an account?</small></p>
-                <a href="{{ url('/hasharea') }}" class="btn btn-sm btn-white btn-block">Create an account</a>
-                </form>
-                <div class="footer" style="position: fixed;">
+                                @endif 
+               </div>
+                <button class="btn aqua block full-width bottom15" type="submit">Unlock Access</button>
+                <p class="text-muted text-center"><small>Arleady Have an account?</small></p>
+                <a href="{{ url('/login') }}" class="btn btn-sm btn-white btn-block">Login </a>
+                {!! Form::close() !!}
+                 <div class="footer" style="position: fixed;">
                     <div class="pull-right">
                         <ul class="list-inline">
                             
@@ -92,4 +84,3 @@
     </div>
   </div>
 </body>
-
