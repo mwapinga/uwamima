@@ -9,10 +9,10 @@
           <div class="col-lg-12">
             <div class="ibox float-e-margins">
               <div class="ibox-title">
-                <h5>ALL EXPORTS</h5>
+                <h5>ALL BLOCKS</h5>
               </div>
               <BR>
-              <button class="btn aqua btn-outline" type="button"><a href="{{ url('/addmore') }}"> ADD EXPORT</a></button>
+              <button class="btn aqua btn-outline" type="button"><a href="{{ url('uwablock/create') }}"> ADD BLOCK</a></button>
                    @if (\Session::has('success'))
                                        <div class="alert alert-success">
                                       <p>{{ \Session::get('success') }}</p>
@@ -24,39 +24,27 @@
                     <table id="example7" class="display nowrap table  responsive nowrap table-bordered">
                       <thead>
                        <tr>            <th>No. </th>
-                                       <th>Owner</th>
-                                       <th>UserName</th>
-                                       <th>Product</th>
-                                       <th>Type</th>
-                                       <th>Date</th>
-                                       <th>Amount</th>
-                                       <th>Car T No.</th>
-                                       <th>Driver Name</th>
-                                       <th>In Time</th>
-                                       <th>Out Time</th>
-                                       <th>Edit Option</th>
+                                       <th>Block Name</th>
+                                       <th>Block Owner Name</th>
+                                       <th>Area Meter Square</th>
+                                       <th>Created </th>
+                                       <th>Edit Options</th>
                                     </tr>
                                  </thead>
                                  <tbody>
-                          @if ($exp)
-                         @foreach ( $exp as $index => $expos )
+                          @if($block)
+                         @foreach ( $block as $index => $impos )
                  
                                         <td>{{ $index+1 }}</td>
-                                       <td>{{ ucfirst($expos->user->name) }}</td>
-                                       <td>{{ ucfirst($expos->user->username) }}</td>
-                                       <td>{{ $expos->product->name }}</td>
-                                       <td>{{ $expos->category->name }}</td>
-                                       <td>{{ $expos->date }}</td>
-                                       <td>{{ $expos->quantity }}</td>
-                                       <td>{{ ucwords($expos->carnumber) }}</td>
-                                       <td>{{ ucfirst($expos->drivername) }}</td>
-                                       <td>{{ $expos->intime }}</td>
-                                       <td>{{ $expos->outime }}</td>
-                                     <td>
-                                      <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminexport/'.$expos->id .'/edit')}}"> Edit Export</a> </button>
-                                   </td>
+                                       <td>{{ ucfirst($impos->name) }}</td>
+                                       <td>{{ ucfirst($impos->user->name) }}</td>
+                                       <td>{{ $impos->Area }} M Square</td>
+                                       <td> {{ $impos->created_at->diffForHumans() }}
+                                       <td>
+                                      <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwablock/'.$impos->id .'/edit') }}"> Edit Block</a> </button>
+                                        </td>
                                     </tr>
-                     @endforeach
+                         @endforeach
                       @endif
                                     
                       </tbody>

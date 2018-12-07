@@ -83,7 +83,7 @@
             @endif
          </div>             
          <div class="form-group col-xs-12 col-sm-3">
-                {!! Form::label('price', 'Price:') !!}
+                {!! Form::label('price', 'Price Per Single Quantity:') !!}
                 {!! Form::number('price', null, ['class'=>'form-control',  'required']) !!}
 
                            

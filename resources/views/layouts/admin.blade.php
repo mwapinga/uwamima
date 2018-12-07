@@ -31,6 +31,11 @@
     <link href="{{ asset('assets/css/dark-grey.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/main.media.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/adminUIdemo.css') }}" rel="stylesheet">s
+    <link rel="stylesheet" href="{{ url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css') }}" />    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script src="{{ url('//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js') }}"></script>
+    <script src="{{ url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js') }}"></script> 
 
 </head>
 
@@ -117,24 +122,24 @@
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-long-arrow-left"></i> <span class="title">Manage Imports</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
                             <li class="nav-item"><a class="nav-link" href="{{ url('uwadminimport') }}">All Imports</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminimport/create') }}">Add Import</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminimport/create') }}">Imports Reports</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('addmore/create') }}">Add Import</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('report') }}">Imports Reports</a></li>
                         </ul>
                     </li>
                    <li class="nav-item">
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-long-arrow-right"></i> <span class="title">Manage Exports</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
                             <li class="nav-item"><a class="nav-link" href="{{ url('uwadminexport') }}">All Exports</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminexport/create') }}">Add Export</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminexport/create') }}">Exports Reports</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/addmore') }}">Add Export</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('report/create') }}">Exports Reports</a></li>
                         </ul>
                     </li>
                      <li class="nav-item">
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-exchange"></i> <span class="title">Manage Sales</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
                             <li class="nav-item"><a class="nav-link" href="{{ url('uwadminsale') }}">All Sales</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminsale/create') }}">Add Sale</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminsale/create') }}">Sales Reports</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/sale') }}">Add Sale</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/salerep') }}">Sales Reports</a></li>
                         </ul>
                     </li>
                       <li class="nav-item">
@@ -142,9 +147,16 @@
                         <ul class="sub-menu">
                             <li class="nav-item"><a class="nav-link" href="{{ url('uwadminorder') }}">All Oders</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('uwadminorder/create') }}">Add Oder</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminorder/create') }}">Oders Reports</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('report/orders') }}">Oders Reports</a></li>
                         </ul>
-                    </li>
+                      </li>
+                       <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-clone"></i> <span class="title">Manage Block</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwablock') }}">All Blocks</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwablock/create') }}">Add Block</a></li>
+                        </ul>
+                      </li>
                 <li class="heading">
                         <h3 class="uppercase">Layouts</h3>
                  </li>

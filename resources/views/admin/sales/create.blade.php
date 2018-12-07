@@ -14,12 +14,12 @@
       </div>
     </div>
 
-          <div class="col-lg-12 top20">
+          <div class="col-lg-6 top20">
           <div class="widgets-container">
             <h5>Fill the form Below</h5>
      {!! Form::open(['method'=>'POST','action'=> 'uwadminsales@store']) !!}
         
-         <div class="form-group col-xs-12 col-sm-3">
+         <div class="form-group">
                 {!! Form::label('name', 'Seller Name:') !!}
                 {!! Form::text('name', null , ['class'=>'form-control','required']) !!}
              @if ($errors->has('name'))
@@ -30,73 +30,9 @@
                </div>    
             @endif
         
-         </div>
+         </div>      
 
-         <div class="form-group col-xs-12 col-sm-3">
-            <label>Product Name</label>
-            <select id="product_id" name="product_id" class="form-control bottom15{{ $errors->has('product_id') ? ' is-invalid' : '' }}">
-                @foreach($product as $index => $prods)
-                <option value="{{ $prods->id }}" > {{ $prods->name }} </option>
-                @endforeach
-              </select>          
-            @if ($errors->has('product_id'))
-            <div class="alert alert-danger" >
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('product_id') }}</strong>
-                </span>
-                  </div>
-            @endif  
-         </div>
-         <div class="form-group col-xs-12 col-sm-3">
-         <label>Category Name</label>
-         <select id="category_id" name="category_id" class="form-control" required>
-               @foreach($category as $index => $cats)
-                <option value="{{ $cats->id }}" > {{ $cats->name }} </option>
-             @endforeach
-         </select> 
-            @if ($errors->has('category_id'))
-                  <div class="alert alert-danger" >
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('category_id') }}</strong>
-                </span>
-               </div>
-            @endif
-            @if (\Session::has('success'))
-                  <div class="alert alert-danger">
-                  <p>{{ \Session::get('success') }}</p>
-                    </div><br />
-             @endif
-
-         </div>  
-          <div class="form-group col-xs-12 col-sm-3">
-                {!! Form::label('quantity', 'Quantity:') !!}
-                {!! Form::number('quantity', null, ['class'=>'form-control', 'required']) !!}
-
-            @if ($errors->has('quantity'))
-                <div class="alert alert-danger" >
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('quantity') }}</strong>
-                </span>
-                </div>
-            @endif
-         </div>             
-         <div class="form-group col-xs-12 col-sm-3">
-                {!! Form::label('price', 'Price Per Single Quantity:') !!}
-                {!! Form::number('price', null, ['class'=>'form-control',  'required']) !!}
-
-                           
-            @if ($errors->has('price'))
-                 <div class="alert alert-danger" >
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('price') }}</strong>
-                </span>
-                 </div>
-            @endif
-         
-         </div> 
-
-
-                   <div class="form-group col-xs-12 col-sm-3">
+        <div class="form-group">
                 {!! Form::label('date', 'Date:') !!}
                 {!! Form::date('date', null, ['class'=>'form-control', 'required']) !!}
             
@@ -111,7 +47,7 @@
 
          </div>
 
-         <div class="form-group col-xs-12 col-sm-3">
+         <div class="form-group">
                 {!! Form::label('sold_to', 'Buyer:') !!}
                 {!! Form::text('sold_to', null, ['class'=>'form-control', 'required']) !!}
 
@@ -131,10 +67,6 @@
                     </div><br />
              @endif
          </div> 
-
-           <BR><br><br>
-           <BR><br><br><BR><br><br>
-            <BR><br><br><br>
          <div class="form-group">
            {!! Form::submit('SUBMIT SALES', ['class'=>'btn btn-primary']) !!}
          </div>

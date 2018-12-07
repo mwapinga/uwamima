@@ -13,7 +13,7 @@
 
 
 Route::group(['middleware' => 'auth'], function() {
-  
+
   Route::resource('/uwadmin', 'adminhomepage');
   Route::resource('/uwadminimport', 'importsController');
   Route::resource('/uwadminexport', 'ExportController');
@@ -21,6 +21,16 @@ Route::group(['middleware' => 'auth'], function() {
   Route::resource('/uwadminorder', 'OrderController');
   Route::resource('/uwadminuser', 'UserController' );
   Route::resource('/permission', 'permissionController');
+  Route::resource('/addmore', 'tempoController');
+  Route::post('/add', 'tempoController@install');
+  Route::post('/addsale', 'tempoController@saleinput');
+  Route::get('/sale', 'tempoController@sale');
+  Route::resource('/report', 'ReportController');
+  Route::post('/expreport', 'ReportController@export');
+   Route::get('/salerep', 'ReportController@salereport');
+  Route::post('/saleform', 'ReportController@saleput');
+  Route::resource('/uwablock' , 'BlockController');
+  
 });
 Route::resource('/hasharea', 'hashkeyController');
 

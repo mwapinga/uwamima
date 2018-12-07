@@ -12,7 +12,7 @@
                 <h5>ALL IMPORTS</h5>
               </div>
               <BR>
-              <button class="btn aqua btn-outline" type="button"><a href="{{ url('uwadminimport/create') }}"> ADD IMPORT</a></button>
+              <button class="btn aqua btn-outline" type="button"><a href="{{ url('addmore/create') }}"> ADD IMPORT</a></button>
                    @if (\Session::has('success'))
                                        <div class="alert alert-success">
                                       <p>{{ \Session::get('success') }}</p>
@@ -26,6 +26,7 @@
                        <tr>            <th>No. </th>
                                        <th>Owner</th>
                                        <th>UserName</th>
+                                       <th>Farmer Name</th>
                                        <th>Product</th>
                                        <th>Type</th>
                                        <th>Date</th>
@@ -44,6 +45,7 @@
                                         <td>{{ $index+1 }}</td>
                                        <td>{{ ucfirst($impos->user->name) }}</td>
                                        <td>{{ ucfirst($impos->user->username) }}</td>
+                                       <td>{{ ucfirst($impos->farmname) }}</td>
                                        <td>{{ $impos->product->name }}</td>
                                        <td>{{ $impos->category->name }}</td>
                                        <td>{{ $impos->date }}</td>

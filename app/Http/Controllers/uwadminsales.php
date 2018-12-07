@@ -8,6 +8,7 @@ use App\purchases;
 use App\product;
 use App\category;
 use App\User;
+use App\tempo;
 
 class uwadminsales extends Controller
 {
@@ -29,9 +30,13 @@ class uwadminsales extends Controller
 
     public function create()
     {   
-         $product = product::all();
-         $category = category::all();
-         return view('admin.sales.create' , compact('product' , 'category'));
+
+         $detail = tempo::all();
+         if($detail->isEmpty())
+        {
+           return redirect()->back();
+        }
+         return view('admin.sales.create');
     }
 
     /**
@@ -44,46 +49,40 @@ class uwadminsales extends Controller
     {
          $this->validate($request, [
            'name' => 'required|string|max:255|exists:users,name',
-           'product_id' => 'required',
-           'category_id' => 'required',
-           'quantity' => 'required',
            'date' => 'required|date',
-           'price' => 'required',
-           'sold_to'=> 'required|string|max:255|exists:users,name|different:name',
+           'sold_to'=> 'required|string|max:255|different:name',
          ]);
 
          $input = $request->all();
-         $input['price'] = $input['quantity'] * $input['price'];
+         $details = tempo::where('type', 'sales')->get();
 
          if(strcasecmp($input['name'], $input['sold_to']) == 0){
 
              return redirect()->back()->with('error','Buyer should be different To the seller'); 
          }
- 
-         $catsid = $input['category_id']; 
-         $prodsid = $input['product_id']; 
          
          $user = User::where('name', $input['name'])->get()->first();
-         $buyer = User::where('name', $input['sold_to'])->get()->first();
-         $buyerID = $buyer->id;
 
-         $cats = category::where('id', $catsid )->get()->first();
          $userId = $user->id;
          $token = $input['_token'];
-         $catproId = $cats->product_id;
 
-         if($prodsid != $catproId){     
-          return redirect()->back()->with('success','Invalid Category for Selected Product'); 
-         }
           unset($input['name']);
           unset($input['_token']);
-          $output = array('_token' =>$token , 'user_id'=>$userId)+$input;
+         
+       foreach ($details  as  $d) {
+
+         $all  = array('_token' =>$token, 'user_id'=>$userId,'product_id' =>$d->product_id ,'category_id' => $d->category_id , 'quantity' => $d->quantity , 'price' => $d->price)+$input;
+            sales::create($all);
+
+          }
+
+          foreach($details as $dl)
+         {
+             $dl->delete();
+         }
+         return redirect('uwadminsale')->with('success', 'Sales Added Succesfully');
   
-         $salez = sales::create($output);
-         purchases::create([
-             'user_id'=>$buyerID, 
-             'sales_id'=>$salez->id,
-          ]);
+        
         return redirect('uwadminsale')->with('success', 'Sales Added Succesfully');       
     }
 
@@ -109,6 +108,7 @@ class uwadminsales extends Controller
           $product = product::all();
           $category = category::all();
           $sale = sales::findorFail($id);
+          $sale['price']= $sale->price/$sale->quantity;
          return view('admin.sales.edit', compact('sale','product' , 'category'));
     }
 
@@ -130,7 +130,7 @@ class uwadminsales extends Controller
            'quantity' => 'required',
            'date' => 'required|date',
            'price' => 'required',
-           'sold_to'=> 'required|string|max:255|exists:users,name|different:name',
+           'sold_to'=> 'required|string|max:255|different:name',
          ]);
 
          $input = $request->all();
@@ -147,7 +147,7 @@ class uwadminsales extends Controller
 
          $user = User::where('name', $input['name'])->get()->first();
          $buyer = User::where('name', $input['sold_to'])->get()->first();
-         $buyerID = $buyer->id;
+
 
          $cats = category::where('id', $catsid )->get()->first();
          $userId = $user->id;
@@ -162,10 +162,6 @@ class uwadminsales extends Controller
           $output = array('_token' =>$token , 'user_id'=>$userId)+$input;
   
          $sales->update($output);
-          $purchases = purchases::where('sales_id', $id)->get()->first();
-         $purchases->update([
-             'user_id'=>$buyerID,
-          ]);
         return redirect('uwadminsale')->with('success', 'Sales Edited Succesfully');      
     }
     /**
@@ -176,7 +172,7 @@ class uwadminsales extends Controller
      */
     public function destroy($id)
     {
-          $sale= sales::findorfail($id);   
+          $sale= sales::findorfail($id); 
           $sale->delete();
           return redirect('uwadminsale')->with('success', 'Sales Deleted Succesfully');
     }

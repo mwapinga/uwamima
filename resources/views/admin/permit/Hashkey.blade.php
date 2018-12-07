@@ -11,11 +11,12 @@
      @if ($confirmation_code)
      <div class="col-lg-12">
         <h2> Regristration Code </h2>
-        <p>New User Should use This Code to register and will Expire after 24 Hours</p><br>
+        <p>New User Should use This Code and the Email below to register and will Expire after 24 Hours</p><br>
       </div>
           <div class="col-lg-12 top20">
           <div class="widgets-container">
-
+            <hr>
+        {{ $email }}
         <hr>
         {{ $confirmation_code }}
         <hr>

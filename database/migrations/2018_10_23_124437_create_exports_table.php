@@ -16,6 +16,7 @@ class CreateExportsTable extends Migration
         Schema::create('exports', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->string('farmname');
             $table->integer('block_id');
             $table->integer('product_id');
             $table->integer('category_id');

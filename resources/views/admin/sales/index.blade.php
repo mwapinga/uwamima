@@ -12,7 +12,7 @@
                 <h5>ALL SALES</h5>
               </div>
               <BR>
-              <button class="btn aqua btn-outline" type="button"><a href="{{ url('uwadminsale/create') }}"> ADD SALES</a></button>
+              <button class="btn aqua btn-outline" type="button"><a href="{{ url('/sale') }}"> ADD SALES</a></button>
                    @if (\Session::has('success'))
                                        <div class="alert alert-success">
                                       <p>{{ \Session::get('success') }}</p>

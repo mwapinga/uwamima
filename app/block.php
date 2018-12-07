@@ -8,7 +8,7 @@ class block extends Model
 {
 
     protected $fillable = [
-        'name'
+        'name','user_id', 'Area',
     ];
 
     public function user(){

@@ -15,7 +15,7 @@ class permissionController extends Controller
     { 
 
           $user= User::all();
-          return view('admin.permit.index',compact('user') );
+        return view('admin.permit.index',compact('user') );
      
     }
         
@@ -28,8 +28,8 @@ class permissionController extends Controller
 
     public function create()
     {      $confirmation_code = null;
-           $succes = null;
-           return view('admin.permit.Hashkey',compact('confirmation_code','succes'));
+           $success = null;
+           return view('admin.permit.Hashkey',compact('confirmation_code','success'));
     }
 
     /**
@@ -62,9 +62,10 @@ class permissionController extends Controller
                         Regkey::create([
                             'key'=> $confirmation_code,
                             'email'=>$input['email'], ]); 
-                    
+
+                                    $email=$input['email'];
                     $success = "New User Regristration Access Granted Use the Key Below";   
-                     return view('admin.permit.Hashkey',compact('confirmation_code','success'));
+                     return view('admin.permit.Hashkey',compact('confirmation_code','success','email'));
                         
         
     }
@@ -145,7 +146,10 @@ class permissionController extends Controller
      
   if($ide != $id){
      if(Auth::attempt(['email' => $email, 'password' => $password])) {
-                unlink(public_path(). "assets/images/". $user->photo->photo_tag );
+
+              if (file_exists(public_path()."assets\images\\". $user->photo->photo_tag)) {
+                unlink(public_path(). "assets\images\\". $user->photo->photo_tag );
+                }
                 $user->delete();
                 return redirect('permission')->with('success', 'User Deleted Succesfully');       
             } 

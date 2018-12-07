@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Role;
 use App\Photo;
+use App\block;
 use Image;
 use App\Http\Requests\UsersRequest;
 use Illuminate\Http\Request;
@@ -77,7 +78,8 @@ class UserController extends Controller
     {
 
         $user = User::findOrFail($id);
-        return view('admin.user.show' , compact('user'));      
+        $blck = block::where('user_id',$id)->get();
+        return view('admin.user.show' , compact('user','blck'));      
     }
 
     /**

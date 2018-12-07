@@ -57,14 +57,7 @@
                     </tr>
                     <tr>
                       <td><h2><strong>{{ Auth::user()->role->name }}</strong></h2><i>         Role </i></td>
-                      <td><h2><strong> @if($blck)
-                         @foreach ($blck as $element)
-                           {{ $element->name }} ,
-                         @endforeach
-                         @else
-                         No Block
-                         @endif
-                 </strong></h2><i>          Block No</i> </td>
+                      <td><h2><strong>{{ Auth::user()->block?$user->block->name: "No Block" }}</strong></h2><i>          Block No</i> </td>
                     </tr>
                   </tbody>
                 </table>

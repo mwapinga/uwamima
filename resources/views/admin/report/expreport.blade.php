@@ -1,23 +1,72 @@
 @extends('layouts.admin')
 
-
-
 @section('content')
 <div class="page-content-wrapper animated fadeInRight">
 <div class="page-content">
+   <div class="row wrapper border-bottom page-heading">
+      <div class="col-lg-12">
+        <h2> EXPORT REPORT </h2>
+        <ol class="breadcrumb">
+          <li class="active"> <strong> </strong> </li>
+        </ol>
+      </div>
+    </div>
+
+          <div class="col-lg-12 top20">
+          <div class="widgets-container">
+            <h3>Enter the Date Deatils to Get the Report</h3>
+           <hr>
+            <h4>For single day date enter the same Date in Both fields (Start Date :: End Date)</h4>
+
+                        {!! Form::open(['method'=>'POST','action'=> 'ReportController@export']) !!}
+
+                        <div class="form-group col-xs-12 col-sm-3">
+                        {!! Form::label('fromdate', 'Start Date:') !!}
+                        {!! Form::date('fromdate', null, ['class'=>'form-control', 'required']) !!}
+
+                        @if ($errors->has('fromdate'))
+                        <div class="alert alert-danger" >
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('fromdate') }}</strong>
+                        </span>
+                        </div>
+                        @endif
+
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-3">
+
+                        {!! Form::label('Enddate', 'End Date:') !!}
+                        {!! Form::date('Enddate', null, ['class'=>'form-control', 'required']) !!}
+
+                        @if ($errors->has('Enddate'))
+                        <div class="alert alert-danger" >
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('Enddate') }}</strong>
+                        </span>
+                        </div>
+                        @endif
+
+                        </div>
+                        <br>
+                        <div class="form-group">
+                        {!! Form::submit('GET REPORT', ['class'=>'btn btn-primary']) !!}
+                        </div>
+                        <hr>
+                        {!! Form::close() !!}
+                        </div>
+                        </div>
+
+
+        @if ($exp)   
      <div class="row">
           <div class="col-lg-12">
             <div class="ibox float-e-margins">
               <div class="ibox-title">
-                <h5>ALL EXPORTS</h5>
+                <h5> EXPORT REPORT</h5>
               </div>
               <BR>
-              <button class="btn aqua btn-outline" type="button"><a href="{{ url('/addmore') }}"> ADD EXPORT</a></button>
-                   @if (\Session::has('success'))
-                                       <div class="alert alert-success">
-                                      <p>{{ \Session::get('success') }}</p>
-                                      </div><br />
-                  @endif
+             <h3><button class="btn aqua btn-outline" type="button">EXPORT REPORT FROM {{ $from }}  TO  {{ $to }} </button></h3>
               <div class="ibox-content collapse in">
                 <div class="widgets-container">
                   <div >
@@ -26,6 +75,7 @@
                        <tr>            <th>No. </th>
                                        <th>Owner</th>
                                        <th>UserName</th>
+                                       <th>Farmer Name</th>
                                        <th>Product</th>
                                        <th>Type</th>
                                        <th>Date</th>
@@ -34,30 +84,24 @@
                                        <th>Driver Name</th>
                                        <th>In Time</th>
                                        <th>Out Time</th>
-                                       <th>Edit Option</th>
                                     </tr>
                                  </thead>
                                  <tbody>
-                          @if ($exp)
-                         @foreach ( $exp as $index => $expos )
-                 
-                                        <td>{{ $index+1 }}</td>
-                                       <td>{{ ucfirst($expos->user->name) }}</td>
-                                       <td>{{ ucfirst($expos->user->username) }}</td>
-                                       <td>{{ $expos->product->name }}</td>
-                                       <td>{{ $expos->category->name }}</td>
-                                       <td>{{ $expos->date }}</td>
-                                       <td>{{ $expos->quantity }}</td>
-                                       <td>{{ ucwords($expos->carnumber) }}</td>
-                                       <td>{{ ucfirst($expos->drivername) }}</td>
-                                       <td>{{ $expos->intime }}</td>
-                                       <td>{{ $expos->outime }}</td>
-                                     <td>
-                                      <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminexport/'.$expos->id .'/edit')}}"> Edit Export</a> </button>
-                                   </td>
+                         @foreach ( $exp as $index => $impos )     
+                                      <td>{{ $index+1 }}</td>
+                                       <td>{{ ucfirst($impos->user->name) }}</td>
+                                       <td>{{ ucfirst($impos->user->username) }}</td>
+                                       <td>{{ ucfirst($impos->farmname) }}</td>
+                                       <td>{{ $impos->product->name }}</td>
+                                       <td>{{ $impos->category->name }}</td>
+                                       <td>{{ $impos->date }}</td>
+                                       <td>{{ $impos->quantity }}</td>
+                                       <td>{{ ucwords($impos->carnumber )}}</td>
+                                       <td>{{ ucfirst($impos->drivername) }}</td>
+                                       <td>{{ $impos->intime }}</td>
+                                       <td>{{ $impos->outime }}</td>
                                     </tr>
-                     @endforeach
-                      @endif
+                           @endforeach
                                     
                       </tbody>
                     </table>
@@ -68,9 +112,13 @@
           </div>
         </div>
       </div>
-      </div>
-    </div> 
- @stop
+
+    @endif
+
+  </div>
+</div>
+@stop
+
  
     <script>
         var dataSet = [
@@ -241,3 +289,4 @@
 
         });
     </script>
+

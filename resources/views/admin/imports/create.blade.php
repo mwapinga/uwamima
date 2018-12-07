@@ -1,25 +1,22 @@
 @extends('layouts.admin')
 
 
-
 @section('content')
 <div class="page-content-wrapper animated fadeInRight">
 <div class="page-content">
    <div class="row wrapper border-bottom page-heading">
-      <div class="col-lg-12">
-        <h2> ADD IMPORT </h2>
+      <div class="col-lg-6">
         <ol class="breadcrumb">
-          <li class="active"> <strong>Import  Form </strong> </li>
+          <li class="active"> <strong> Second Import  Form </strong> </li>
         </ol>
       </div>
     </div>
-
-          <div class="col-lg-12 top20">
+          <div class="col-lg-6 top20">
           <div class="widgets-container">
             <h5>Fill the form Below</h5>
-     {!! Form::open(['method'=>'POST','action'=> 'importsController@store']) !!}
-        
-         <div class="form-group col-xs-12 col-sm-3">
+
+     {!! Form::open(['method'=>'POST','action'=> 'importsController@store']) !!}  
+         <div class="form-group">
                 {!! Form::label('name', 'Owner Name:') !!}
                 {!! Form::text('name', null , ['class'=>'form-control']) !!}
              @if ($errors->has('name'))
@@ -31,60 +28,19 @@
             @endif
         
          </div>
-
-         <div class="form-group col-xs-12 col-sm-3">
-            <label>Product Name</label>
-            <select id="product_id" name="product_id" class="form-control bottom15{{ $errors->has('product_id') ? ' is-invalid' : '' }}">
-                @foreach($product as $index => $prods)
-                <option value="{{ $prods->id }}" > {{ $prods->name }} </option>
-                @endforeach
-              </select>          
-
-            @if ($errors->has('product_id'))
-            <div class="alert alert-danger" >
+          <div class="form-group">
+                {!! Form::label('farmname', 'Farmer Name:') !!}
+                {!! Form::text('farmname', null , ['class'=>'form-control']) !!}
+             @if ($errors->has('farmname'))
+               <div class="alert alert-danger" >
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('product_id') }}</strong>
+                    <strong>{{ $errors->first('farmname') }}</strong>
                 </span>
-                  </div>
+               </div>    
             @endif
         
          </div>
-
-         <div class="form-group col-xs-12 col-sm-3">
-         <label>Category Name</label>
-         <select id="category_id" name="category_id" class="form-control">
-               @foreach($category as $index => $cats)
-                <option value="{{ $cats->id }}" > {{ $cats->name }} </option>
-             @endforeach
-         </select> 
-            @if ($errors->has('category_id'))
-                  <div class="alert alert-danger" >
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('category_id') }}</strong>
-                </span>
-               </div>
-            @endif
-            @if (\Session::has('success'))
-                  <div class="alert alert-danger">
-                  <p>{{ \Session::get('success') }}</p>
-                    </div><br />
-             @endif
-
-         </div>  
-
-          <div class="form-group col-xs-12 col-sm-3">
-                {!! Form::label('quantity', 'Quantity:') !!}
-                {!! Form::number('quantity', null, ['class'=>'form-control']) !!}
-
-            @if ($errors->has('quantity'))
-                <div class="alert alert-danger" >
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('quantity') }}</strong>
-                </span>
-                </div>
-            @endif
-         </div> 
-                   <div class="form-group col-xs-12 col-sm-3">
+                   <div class="form-group">
                 {!! Form::label('date', 'Date:') !!}
                 {!! Form::date('date', null, ['class'=>'form-control']) !!}
             
@@ -99,7 +55,7 @@
 
          </div>
 
-         <div class="form-group col-xs-12 col-sm-3">
+         <div class="form-group">
                 {!! Form::label('drivername', 'Driver Name:') !!}
                 {!! Form::text('drivername', null, ['class'=>'form-control', 'placeholder'=>'Fist and Second Name']) !!}
 
@@ -114,11 +70,9 @@
          
          </div> 
 
-         <div class="form-group col-xs-12 col-sm-3">
+         <div class="form-group">
                 {!! Form::label('carnumber', 'Car Number:') !!}
                 {!! Form::text('carnumber', null, ['class'=>'form-control']) !!}
-
-
                       
             @if ($errors->has('carnumber'))
                 <div class="alert alert-danger" >
@@ -129,7 +83,7 @@
             @endif 
          </div> 
  
-          <div class="form-group col-xs-12 col-sm-3">
+          <div class="form-group">
                 {!! Form::label('intime', 'In Time:') !!}
                 {!! Form::time('intime', null, ['class'=>'form-control']) !!}
 
@@ -144,7 +98,7 @@
          
          </div>
 
-          <div class="form-group col-xs-12 col-sm-3">
+          <div class="form-group">
                 {!! Form::label('outime', 'Out Time:') !!}
                 {!! Form::time('outime', null, ['class'=>'form-control']) !!}
 
@@ -158,16 +112,17 @@
                  </div>
             @endif         
          </div>
-           <BR><br><br>
-           <BR><br><br><BR><br><br>
-           <BR><br><BR><br><br><BR><br><br><BR><br><br><BR><br><br>
          <div class="form-group">
            {!! Form::submit('SUBMIT IMPORT', ['class'=>'btn btn-primary']) !!}
          </div>
-
          {!! Form::close() !!}
           </div>
         </div>
   </div>
 </div>
+@stop
+@section('scripts')
+
+
+ 
 @stop

@@ -141,7 +141,7 @@
 
 
            {{--  end orders --}}
-            
+
           <!-- tabs imports -->
           <div class="col-lg-20 top20">
             <div class="tabs-container">
@@ -154,9 +154,9 @@
                 {{--  content tab 1 --}}
                 <div class="tab-pane active" id="tab-1">
                   <br>
-                  <button class="btn aqua btn-outline" type="button"><a href="{{ url('uwadminsale/create') }}"> ADD SALES</a></button>
-              
-                <div class="panel-body"> 
+                  <button class="btn aqua btn-outline" type="button"><a href="{{ url('/sale') }}"> ADD SALES</a></button>
+
+                <div class="panel-body">
                   <div class="table-responsive">
                               <table class="table table-bordered table-hover bottom0 ">
                                  <thead>
@@ -220,21 +220,21 @@
                                           <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminsale/edit')}}"> Edit Sale</a> </button>
                                             </td>
                                     </tr>
- 
+
                                  </tbody>
                               </table>
                               <div class="panel-footer text-right"><a href="{{ URL::to('uwadminsale') }}" class="btn aqua btn-sm">View All Sales</a>
                            </div>
-                            
+
                       </div>
                     </div>
                 </div>
              {{--  end tab content 1 --}}
                 <div class="tab-pane " id="tab-2">
                   <br>
-                 <button class="btn aqua btn-outline" type="button"><a href="{{ url('uwadminimport/create') }}"> ADD IMPORT</a></button>
-              
-                <div class="panel-body"> 
+                 <button class="btn aqua btn-outline" type="button"><a href="{{ url('addmore/create') }}"> ADD IMPORT</a></button>
+
+                <div class="panel-body">
                   <div class="table-responsive">
                               <table class="table table-bordered table-hover bottom0 ">
                                  <thead>
@@ -298,12 +298,12 @@
                                           <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminimport/edit')}}"> Edit Import</a> </button>
                                             </td>
                                     </tr>
- 
+
                                  </tbody>
                               </table>
                                 <div class="panel-footer text-right"><a href="{{ URL::to('uwadminimport') }}" class="btn aqua btn-sm">View All Imports</a>
                            </div>
-                            
+
                       </div>
                     </div>
                 </div>
@@ -312,10 +312,10 @@
 
                 <div class="tab-pane " id="tab-3">
                   <br>
-              
-                <button class="btn aqua btn-outline" type="button"><a href="{{ url('uwadminexport/create') }}"> ADD EXPORT</a></button>
-              
-                <div class="panel-body"> 
+
+                <button class="btn aqua btn-outline" type="button"><a href="{{ url('/addmore') }}"> ADD EXPORT</a></button>
+
+                <div class="panel-body">
                   <div class="table-responsive">
                               <table class="table table-bordered table-hover bottom0 ">
                                  <thead>
@@ -379,7 +379,7 @@
                                           <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminexport/edit')}}"> Edit Export</a> </button>
                                             </td>
                                     </tr>
- 
+
                                  </tbody>
                               </table>
                             <div class="panel-footer text-right"><a href="{{ url('uwadminexport') }}" class="btn aqua btn-sm">View All Exports</a>
@@ -438,7 +438,7 @@
                            </div>
                   </div>
                 </div> --}}
-{{-- 
+{{--
               </div>
             </div>
           </div>

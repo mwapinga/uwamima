@@ -69,7 +69,7 @@
       </div>
 
       <div class="form-group">
-       {!! Form::submit('EDIT PERMISSION', ['class'=>'btn btn-primary' 'onclick'=>'return confirm(\'are you sure you want to make this changes?\');']) !!}
+       {!! Form::submit('EDIT PERMISSION', ['class'=>'btn btn-primary' ,'onclick'=>'return confirm(\'are you sure you want to make this changes?\');']) !!}
 
      </div>
      {!! Form::close() !!}

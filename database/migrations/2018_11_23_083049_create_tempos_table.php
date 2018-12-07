@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImportsTable extends Migration
+class CreateTemposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,11 @@ class CreateImportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('imports', function (Blueprint $table) {
+        Schema::create('tempos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->string('farmname');
-            $table->integer('block_id');
             $table->integer('product_id');
             $table->integer('category_id');
-            $table->string('carnumber');
-            $table->string('drivername');
             $table->integer('quantity');
-            $table->date('date');
-            $table->time('intime');
-            $table->time('outime');
             $table->timestamps();
         });
     }
@@ -37,6 +29,6 @@ class CreateImportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('imports');
+        Schema::dropIfExists('tempos');
     }
 }

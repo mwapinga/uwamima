@@ -26,6 +26,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\Photo');
     }
 
+  public function block(){
+        return $this->belongsTo('App\block');
+    }
+
 
     /**
      * The attributes that should be hidden for arrays.
