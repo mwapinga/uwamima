@@ -1,72 +1,80 @@
 <!DOCTYPE html>
-<html>
-<head>
-   <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
-    <link href=" {{ url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700%7CJosefin+Sans:600,700') }} " rel="stylesheet">
-    <script src="{{ url('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js') }}"></script>
-    <script src="{{ url('https://code.jquery.com/jquery-1.12.4.js') }}"></script>
-     <script src="{{ url('https://code.jquery.com/ui/1.12.1/jquery-ui.js') }}"></script>
-   
-    <link rel="stylesheet" href="{{ asset('ast/css/font-awesome.min.css') }}">
+<html lang="en">
 
-    <link href="{{ asset('asst/css/materialize.css') }}" rel="stylesheet">
-    <link href="{{ asset('asst/css/bootstrap.css') }}" rel="stylesheet" />
-    <link href="{{ asset('asst/css/style.css') }}" rel="stylesheet" />
-    <link href="{{ asset('asst/css/style-mob.css') }}" rel="stylesheet" />
-    <title>Ebenezer Seminary Dashboard Reset password</title>
+
+<!-- Mirrored from adminui-v1.0.bittyfox.com/default/dark-grey/lockscreen.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Jun 2017 10:50:00 GMT -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> RESET PASSWORD UWAMIMA DASHBOARD</title>
+  <!-- Bootstrap -->
+  <link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- slimscroll -->
+  <link href="{{ url('assets/css/jquery.slimscroll.css') }}" rel="stylesheet">
+  <!-- Fontes -->
+  <link href="{{ url('assets/css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ url('assets/css/simple-line-icons.css') }}" rel="stylesheet">
+  <!-- all buttons css -->
+  <link href="{{ url('assets/css/buttons.css') }}" rel="stylesheet">
+  <!-- animate css -->
+<link href="{{ url('assets/css/animate.css') }}" rel="stylesheet">
+<!-- top nev css -->
+<link href="{{ url('assets/css/page-header.css') }}" rel="stylesheet">
+<!-- adminui main css -->
+  <link href="{{ url('assets/css/main.css') }}" rel="stylesheet">
+  <!-- dark grey theme css -->  
+  <link href="{{ url('assets/css/dark-grey.css') }}" rel="stylesheet">
+  <!-- media css for responsive  -->
+  <link href="{{ url('assets/css/main.media.css') }}" rel="stylesheet">
+  <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+  <!--[if lt IE 9]> <script src="dist/html5shiv.js"></script> <![endif]-->
 </head>
-<body  style="background-color: #174545;" > 
-   <section>              
-      <div>
-            <div class="log-in-pop">
-                @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                     <h1 style="padding: center; text-decoration-color:white;"> RESET PASSWORD</h1>
-                <div class="log-in-pop-left">
-                    <ul>
-                        <h3>Welcome </h3>
-                      {{--   <li><a href="{{ url('login/facebook') }}"><i class="fa fa-facebook"></i> Facebook</a>
-                        </li>
-                        <li><a href="{{ url('login/google') }}"><i class="fa fa-google"></i> Google+</a>
-                        </li>
-                        <li><a href="{{ url('login/twitter') }}"><i class="fa fa-twitter"></i> Twitter</a>
-                        </li> --}}
-                    </ul>
-                </div>
-                <div class="log-in-pop-right">
-                    <h4>Forgot password</h4>
-                    <p>Lets us know your email so we can restore your account</p>
-<form method="POST" action="{{ route('password.email') }}" aria-label="{{ __('Reset Password') }}">
-                        @csrf
-                        <div>
-                            <div class="input-field s12">
-<input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" class="validate" name="email" value="{{ old('email') }}" required>
-                          @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
+
+<body class="login">
+  <div class="logo">
+    <a href="#"> <img src='{{ url('assets/images/logo.png') }}' alt=""> </a>
+  </div>
+     @if($success)
+   <div class="alert alert-success">
+    <p>{{ $success }} {{ $mail }} CheckOut</p>
+    </div><br />
+     @endif
+  <div class="middle-box text-center loginscreen ">
+    <div class="widgets-container">
+      <div class="bottom20"> <img alt="image" class="img-circle circle-border" src="{{ url('assets/images/user.jpg') }}"> </div>
+      <h3> Forgot Password </h3>
+       @if (\Session::has('error'))
+           <div class="alert alert-danger">
+          <p>{{ \Session::get('error') }}</p>
+          </div><br />
+        @endif
+      <p>Please Enter Your Email To Reset the Password</p>
+            {!! Form::open(['method'=>'POST','action'=> 'hashkeyController@store']) !!}
+                      <div class="form-group">
+          <input id="email" type="email"  placeholder="Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"     required autofocus >               
+                                @if ($errors->has('email'))
+                                <div class="alert alert-danger" >
+                                    <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                          @endif
-                                <label>Email id</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="input-field s4">
-                                <input type="submit" value="Reset Password" class="waves-effect waves-light log-in-btn"> </div>
-                        </div>
-                        <div>
-        <div class="input-field s12"> <a href="{{ url('/login') }}" ">Are you a already member ? Login</a> | <a href="{{ url('/register') }}">Create a new account</a> </div>
-                        </div>
-                    </form>
+                                </div>  
+                                @endif            
+
+                 </div>
+                <button class="btn aqua block full-width bottom15" type="submit">Reset Password</button>
+                <a href="{{ url('/login') }}" class="btn btn-sm btn-white btn-block">Login </a>
+                {!! Form::close() !!}
+                 <div class="footer" style="position: fixed;">
+                    <div class="pull-right">
+                        <ul class="list-inline">
+                            
+                        </ul>
+                    </div>
+                    <div> <strong>Copyright</strong> UWAMIMA ORGANISATION &copy; @php
+                       echo  date("Y") 
+                    @endphp </div>
                 </div>
-            </div>
-    </section>
+    </div>
+  </div>
 </body>
-</html>
-        <script src="{{ asset('asst/js/main.min.js') }}"></script>
-    <script src="{{ asset('asst/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('asst/js/materialize.min.js') }}"></script>
-    <script src="{{ asset('asst/js/custom.js') }}"></script>
-     <script src="{{ asset('asst/js/personal.js') }}"></script>

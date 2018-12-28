@@ -19,7 +19,7 @@
       {!! Form::hidden('id', Auth::user()->id) !!}
       
       <div class="form-group">
-       {!! Form::label('name', 'Owner Name: (Both Names)') !!}
+       {!! Form::label('name', 'Your Name: (Both Names)') !!}
        {!! Form::text('name', null , ['class'=>'form-control','required']) !!}
 
         @if ($errors->has('name'))
@@ -79,20 +79,20 @@
                          @endif             
 
       </div>
+       <div class="form-group">
+                   <label>Phone Contact</label> 
+                    {!! Form::text('phone',null , ['class'=>'form-control','required']) !!}  
+                                            
+                         @if($errors->has('phone'))
+                           <div class="alert alert-danger" >
+                          <span class="invalid-feedback" role="alert">
+                          <strong>{{ $errors->first('phone') }}</strong>
+                            </span>
+                           </div>                     
+                 @endif             
 
-      <div class="form-group">
-            
-          {!! Form::label('phone','Bussnes Name:') !!}
-         {!! Form::text('phone', null , ['class'=>'form-control','required']) !!}     
-         @if ($errors->has('phone'))
-                 <div class="alert alert-danger" >     
-                           <span class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('phone') }}</strong>
-                        </span>
-               </div>          
-          @endif   
-         
-      </div> 
+      </div>
+
 
        <div class="form-group">
           {!! Form::label('adress','Living Area :') !!}

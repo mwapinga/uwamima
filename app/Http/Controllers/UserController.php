@@ -78,7 +78,7 @@ class UserController extends Controller
     {
 
         $user = User::findOrFail($id);
-        $blck = block::where('user_id',$id)->get();
+        $blck = $user->blocks()->get();
         return view('admin.user.show' , compact('user','blck'));      
     }
 
@@ -109,7 +109,7 @@ class UserController extends Controller
                $user= User::findorfail($id);
               $this->Validate($request, [
             'name' => 'required|string|max:255',
-            'username' => 'required|string',Rule::unique('users')->ignore($user->id),
+            'username' => 'nullable|string',Rule::unique('users')->ignore($user->id),
             'gender' => 'required|boolean',
             'borndate'  => 'required|date',
             'adress' => 'required|string|max:255',

@@ -7,9 +7,9 @@
 <div class="page-content">
  <div class="middle-box text-center loginscreen   ">
   <div class="widgets-container">
-    <h3>EDIT PERMISSION FOR</h3>
-    <p>{{ $users->name }} USER</p>   
-                 {!! Form::open(['method'=>'DELETE','action'=> ['permissionController@destroy',$users->id]]) !!} 
+    <h3>DELETE USER</h3>
+    <p>{{ $users->name }} </p>   
+                 {!! Form::open(['method'=>'DELETE','action'=> ['PermissiontrustController@destroy',$users->id]]) !!} 
                      <div class="form-group">
                     <p>Enter your Password To Delete This User</p>
                     <input id="password" placeholder="*Password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"  name="password" required>  

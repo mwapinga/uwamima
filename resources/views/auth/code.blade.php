@@ -9,39 +9,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login UWAMIMA DASHBOARD</title>
   <!-- Bootstrap -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- slimscroll -->
-  <link href="assets/css/jquery.slimscroll.css" rel="stylesheet">
+  <link href="{{ url('assets/css/jquery.slimscroll.css') }}" rel="stylesheet">
   <!-- Fontes -->
-  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-  <link href="assets/css/simple-line-icons.css" rel="stylesheet">
+  <link href="{{ url('assets/css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ url('assets/css/simple-line-icons.css') }}" rel="stylesheet">
   <!-- all buttons css -->
-  <link href="assets/css/buttons.css" rel="stylesheet">
+  <link href="{{ url('assets/css/buttons.css') }}" rel="stylesheet">
   <!-- animate css -->
-<link href="assets/css/animate.css" rel="stylesheet">
+<link href="{{ url('assets/css/animate.css') }}" rel="stylesheet">
 <!-- top nev css -->
-<link href="assets/css/page-header.css" rel="stylesheet">
+<link href="{{ url('assets/css/page-header.css') }}" rel="stylesheet">
 <!-- adminui main css -->
-  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="{{ url('assets/css/main.css') }}" rel="stylesheet">
   <!-- dark grey theme css -->  
-  <link href="assets/css/dark-grey.css" rel="stylesheet">
+  <link href="{{ url('assets/css/dark-grey.css') }}" rel="stylesheet">
   <!-- media css for responsive  -->
-  <link href="assets/css/main.media.css" rel="stylesheet">
+  <link href="{{ url('assets/css/main.media.css') }}" rel="stylesheet">
   <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
   <!--[if lt IE 9]> <script src="dist/html5shiv.js"></script> <![endif]-->
 </head>
 
 <body class="login">
   <div class="logo">
-    <a href="#"> <img src='assets/images/logo.png' alt=""> </a>
+    <a href="#"> <img src="{{ url('assets/images/logo.png') }}" alt=""> </a>
   </div>
   <div class="middle-box text-center loginscreen ">
     <div class="widgets-container">
-      <div class="bottom20"> <img alt="image" class="img-circle circle-border" src="assets/images/user.jpg"> </div>
+      <div class="bottom20"> <img alt="image" class="img-circle circle-border" src="{{ url('assets/images/user.jpg') }}"> </div>
+          <p>No Account</p>
           <h2>Welcome To UWAMIMA</h2>
-            <h4>Please Login </h4>
-           <form method="POST" action="{{ route('login') }}">
-                        @csrf
+            <h4>Please Enter Email and Code <br ><br>That We sent to your email</h4>
+          {!! Form::open(['method'=>'POST','action'=> 'hashkeyController@code']) !!} 
                 <div class="form-group">
                       <div class="form-group">
     <input id="email" type="email"  placeholder="Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"  required autofocus >               
@@ -53,15 +53,16 @@
                                 </div>  
                                 @endif             </div>
                 <div class="form-group">
-                               <input id="password"  placeholder="Password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"  name="password" required>
+                               <input id="code"  placeholder="Enter a Code" type="password" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}"  name="code" required>
                                
-                                @if ($errors->has('password'))
+                                @if ($errors->has('code'))
                                 <div class="alert alert-danger" >
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('code') }}</strong>
                                     </span>
                                     </div> 
-                                @endif               </div>
+                                @endif              
+                 </div>
                   {{-- 
                        <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
@@ -75,10 +76,10 @@
                             </div>
                         </div> --}}
                         
-                  <button class="btn aqua block full-width bottom15" type="submit">Login</button>
-                <a href="{{ url('/hasharea') }}"><small>Forgot password?</small></a>
-                <p class="text-muted text-center"><small>Do not have an account?</small></p>
-                <a href="{{ url('/hasharea/1') }}" class="btn btn-sm btn-white btn-block">Create an account</a>
+                  <button class="btn aqua block full-width bottom15" type="submit">Submit</button>
+                  {!! Form::close() !!}
+                   <p class="text-muted text-center"><small>Already have an account?</small></p>
+                   <a href="{{ url('/login') }}" class="btn btn-sm btn-white btn-block">Login</a>
                 </form>
                 <div class="footer" style="position: fixed;">
                     <div class="pull-right">

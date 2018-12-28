@@ -4,9 +4,16 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
-{
+{   
+
+      // roles(), hasRole($name), hasPermission($permission), isAbleTo($permission), can($permission), and ability($roles, $permissions, $options) 
+
+
+
+    use LaratrustUserTrait;
     use Notifiable;
 
     /**
@@ -15,19 +22,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','username', 'email','role_id','password','phone','gender','borndate','adress','photo_id','status', 
+        'name','username', 'email','role_id','password','phone','gender','borndate','adress','photo_id','status','block_id', 
     ];
-
-    public function role(){
-        return $this->belongsTo('App\role');
-    }
 
      public function photo(){
         return $this->belongsTo('App\Photo');
     }
 
-  public function block(){
-        return $this->belongsTo('App\block');
+  public function blocks()
+     {
+        return $this->belongsToMany('App\block');
     }
 
 

@@ -150,6 +150,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Laratrust\LaratrustServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -216,6 +217,7 @@ return [
          'Html' => Collective\Html\HtmlFacade::class,
          'Image' => Intervention\Image\Facades\Image::class,
          'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+         'Laratrust'   => Laratrust\LaratrustFacade::class,
          'Carbon' => 'Carbon\Carbon',
 
     ],

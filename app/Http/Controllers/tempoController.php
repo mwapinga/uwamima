@@ -103,9 +103,10 @@ public function create()
 
            'product_id' => 'required',
            'category_id' => 'required',
-           'quantity' => 'required',
-
-         ]);
+           'quantity' => 'required|gte:1',
+         ],
+          [ 'quantity.gte' => 'The :attribute field can not be Less than 1.' ]
+       );
 
          $input=$request->all();
          $catsid = $input['category_id'];
@@ -165,9 +166,9 @@ public function create()
 
             'product_id' => 'required',
             'category_id' => 'required',
-            'quantity' => 'required',
-
-          ]);
+             'quantity' => 'required|gte:1',
+         ],
+          [ 'quantity.gte' => 'The :attribute field can not be Less than 1.' ]);
 
           $input=$request->all();
           $catsid = $input['category_id'];
@@ -191,10 +192,12 @@ public function create()
 
             'product_id' => 'required',
             'category_id' => 'required',
-            'quantity' => 'required',
-            'price'=>'required',
-
-          ]);
+             'quantity' => 'required|gte:1',
+             'price' => 'required|gte:1',
+         ],
+          [ 'quantity.gte' => 'The :attribute field can not be Less than 1.' , 
+             'price.gte' => 'The :attribute field can not be Less than 1.'
+               ]);
 
           $input=$request->all();
           $input['price'] = $input['quantity'] * $input['price'];

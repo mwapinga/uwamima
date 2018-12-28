@@ -23,10 +23,11 @@
                   <div >
                     <table id="example7" class="display nowrap table  responsive nowrap table-bordered">
                       <thead>
-                       <tr>            <th>No. </th>
+                       <tr>         <th>No. </th>
                                        <th>Block Name</th>
                                        <th>Block Owner Name</th>
                                        <th>Area Meter Square</th>
+                                       <th>Monthly Fee</th>
                                        <th>Created </th>
                                        <th>Edit Options</th>
                                     </tr>
@@ -37,11 +38,16 @@
                  
                                         <td>{{ $index+1 }}</td>
                                        <td>{{ ucfirst($impos->name) }}</td>
-                                       <td>{{ ucfirst($impos->user->name) }}</td>
+                                       <td> 
+                                        @foreach ($impos->users as $user)
+                                               {{ $user->name }}<br />
+                                        @endforeach     
+                                       </td>
                                        <td>{{ $impos->Area }} M Square</td>
+                                       <td>{{ $impos->blockFee }}</td>
                                        <td> {{ $impos->created_at->diffForHumans() }}
                                        <td>
-                                      <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwablock/'.$impos->id .'/edit') }}"> Edit Block</a> </button>
+         <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwablock/' . $impos->id . '/edit')}}"> Edit Block</a> </button>
                                         </td>
                                     </tr>
                          @endforeach

@@ -146,7 +146,6 @@
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-align-center"></i> <span class="title">Manage Orders</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
                             <li class="nav-item"><a class="nav-link" href="{{ url('uwadminorder') }}">All Oders</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminorder/create') }}">Add Oder</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('report/orders') }}">Oders Reports</a></li>
                         </ul>
                       </li>
@@ -157,6 +156,9 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url('uwablock/create') }}">Add Block</a></li>
                         </ul>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="{{ url('blockowner') }}"> <i class="fa fa-address-card-o"></i> <span class="title">Manage Block Owner</span> <span class="arrow"></span> </a>
+                        </li>
                 <li class="heading">
                         <h3 class="uppercase">Layouts</h3>
                  </li>

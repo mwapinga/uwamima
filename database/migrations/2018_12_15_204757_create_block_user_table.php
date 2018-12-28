@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegkeysTable extends Migration
+class CreateBlockUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateRegkeysTable extends Migration
      */
     public function up()
     {
-        Schema::create('regkeys', function (Blueprint $table) {
+        Schema::create('block_user', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('key');
-            $table->string('email')->unique();
-            $table->string('status');
+            $table->integer('user_id');
+            $table->integer('block_id');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateRegkeysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regkeys');
+        Schema::dropIfExists('=block_user');
     }
 }

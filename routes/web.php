@@ -20,7 +20,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::resource('/uwadminsale', 'uwadminsales');
   Route::resource('/uwadminorder', 'OrderController');
   Route::resource('/uwadminuser', 'UserController' );
-  Route::resource('/permission', 'permissionController');
+  Route::resource('/permission', 'PermissiontrustController');
+  Route::post('/detach', 'PermissiontrustController@detach');
   Route::resource('/addmore', 'tempoController');
   Route::post('/add', 'tempoController@install');
   Route::post('/addsale', 'tempoController@saleinput');
@@ -30,9 +31,12 @@ Route::group(['middleware' => 'auth'], function() {
    Route::get('/salerep', 'ReportController@salereport');
   Route::post('/saleform', 'ReportController@saleput');
   Route::resource('/uwablock' , 'BlockController');
+  Route::resource('/blockowner' , 'BlockOwnerController'); 
   
 });
 Route::resource('/hasharea', 'hashkeyController');
+Route::post('/code', 'hashkeyController@code');
+
 
 
 Auth::routes();

@@ -56,14 +56,23 @@
                       <td><h2><strong>{{ Auth::user()->borndate }}</strong></h2><i>      Born Date  (yy/dd/mm)</i></td>
                     </tr>
                     <tr>
-                      <td><h2><strong>{{ Auth::user()->role->name }}</strong></h2><i>         Role </i></td>
-                      <td><h2><strong> @if($blck)
-                         @foreach ($blck as $element)
+                      <td><h2><strong> 
+
+                       @foreach (Auth::user()->roles as $role)
+                        {{ $role->display_name }}  <br />
+                    @endforeach 
+
+                     </strong></h2><i>         Role </i></td>
+                      <td><h2><strong>
+
+                         @if(Auth::user()->blocks )
+                         @foreach (Auth::user()->blocks as $element)
                            {{ $element->name }} ,
                          @endforeach
                          @else
                          No Block
                          @endif
+
                  </strong></h2><i>          Block No</i> </td>
                     </tr>
                   </tbody>

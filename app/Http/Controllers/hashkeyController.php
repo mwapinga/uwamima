@@ -7,28 +7,27 @@ use App\role;
 use App\User;
 use App\Regkey;
 use Carbon\Carbon;
+use App\TempoCode;
+use \Crypt;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class hashkeyController extends Controller
 {
-       public function index()
-    { 
-           return view('auth.lock');
-     
-    }
-        
+ 
+        public function index(){
 
+
+            $success  = null;
+            $mail = null;
+            
+            return view('auth.passwords.email',compact('success','mail'));
+        }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function create()
-    {     
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -38,48 +37,58 @@ class hashkeyController extends Controller
      */
     public function store(Request $request)
     {  
-     $this->validate($request, [
-          'email' => 'required|string|email|max:255|exists:regkeys,email',
-          'key'   =>'required|string',
-         ]);        
-      $input = $request->all();
-      $regkey = Regkey::where('email', $input['email'])->get()->first();
-      $key = $input['key'];
-      $current = Carbon::now();
-      
+       $this->validate($request, [
+          'email' => 'required|string|email|max:255|exists:users,email',
+         ]);
 
-    if ($regkey){
-      
-    	$inkey = $regkey->key;
+          $mail = $input['email'];
+          $input = $request->all();
+          $user = User::where('email',$mail)->get()->first();
+         $code =  str_random(8);
 
-        $created = $regkey->created_at;
-        $time = $current->diffInHours($created); 
-    	if ($key == $inkey) { 		
-			    	               if($regkey->status){
+         $user->update([
+            
+               'password' => Hash::make($code) 
+         ]);
 
-														$user= User::where('email', $input['email'])->get()->first();
+         $data = ['title' => 'Keep Safe this Information',
 
-														if($user){
+                 'Mail'=> ' Mail::  ' . ' ' .  $mail ,
+                 'Password'=> 'New Password:: ' . ' ' . $code, 
+                 'Massage' => 'Please Go to uwamima.or.tz/login And login with the above details Make sure you change your password after log in', 
+                ];
 
-														return redirect()->back()->with('error','User Arleady have an account Please Login');
-														}
+         Mail::send('mail.signup' , $data , function($massage) use ($mail){
 
-														if ($time<=24) {
-														return redirect('/register');
-														}
+             $massage->to($mail)->subject('UWAMIMA NEW PASSWORD ');
 
-														return redirect()->back()->with('error','Your Key Has arleady expired PLease ask for new key');
-													}
-                                            
-                           $regkey->update([ 
-						        'status'=>1
-								]);
-                            return redirect('/register');
-    	                         }
-    	              return redirect()->back()->with('error','Your Entered an Invalid Key');
-        }  
+         });
+         $success = "Reset Passwordwas done Succesfully And New Password has been sent to your email";
 
-         return redirect()->back()->with('error','Your Entered an Invalid Email');
+         return view('auth.passwords.email',compact('success','mail'));
+    
+    }
+
+public function code(Request $request)
+    {   
+         $this->validate($request, [
+             'email' => 'required|string|email|max:255|exists:tempo_codes,email',
+             'code' =>'required'
+         ]);
+
+         $input = $request->all();
+         $tempo = TempoCode::where('email', $input['email'])->first();
+         $codes = Crypt::decrypt($tempo->code);
+         if($input['code'] === $codes){
+
+            return redirect('/register');
+
+         }
+         else{
+            return redirect()->back()->with('fail','You Entered the Wrong Code Please Check Your email');
+         }
+
+
     }
 
     /**
@@ -90,10 +99,12 @@ class hashkeyController extends Controller
      */
     
     public function show($id)
-    {
-         
+    {     $fail = null;
+          return view('auth.code',compact('fail'));
 
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

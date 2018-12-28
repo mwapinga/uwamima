@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlocksTable extends Migration
+class CreateTempoCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateBlocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('blocks', function (Blueprint $table) {
+        Schema::create('tempo_codes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('Area');
-            $table->integer('blockFee');
+            $table->string('email');
+            $table->string('code');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateBlocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blocks');
+        Schema::dropIfExists('tempo_codes');
     }
 }

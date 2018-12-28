@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Laratrust\LaratrustRole;
 
-class role extends Model
+class Role extends LaratrustRole
 {
-    protected $filable = ['name'];
+   
 }

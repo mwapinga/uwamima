@@ -9,20 +9,14 @@
 
 
               <div class="ibox-title">
-                <h5>Users </h5>
+                <h5>Block Owner </h5>
              </div>
              <hr>
-            <a href="{{ URL::to('permission/create')}}" class="btn btn-block btn-info"><i class="glyphicon glyphicon-add" aria-hidden="true"></i>ADD NEW USER </a>
+            <a href="{{ URL::to('permission/create')}}" class="btn btn-block btn-info"><i class="glyphicon glyphicon-add" aria-hidden="true"></i>ADD NEW BLOCK OWNER </a>
    <hr >
     @if (\Session::has('success'))
    <div class="alert alert-success">
     <p>{{ \Session::get('success') }}</p>
-    </div><br />
-     @endif
-
-      @if (\Session::has('fail'))
-   <div class="alert alert-danger">
-    <p>{{ \Session::get('fail') }}</p>
     </div><br />
      @endif
      <div class="ibox-content collapse in">
@@ -31,51 +25,34 @@
     <thead>
         <tr>
          <th>Id</th>
-        {{--  <th>Photo</th> --}}
          <th>Name</th>
          <th>Username</th>
+         <th>Block Name</th>
          <th>Email</th>
          <th>Phone</th>
          <th>Gender</th>
          <th>BornDate</th>
          <th>Living Area</th>
-         <th>Role</th>
          <th>Status</th>
-         <th>Permission</th>
         </tr>
     </thead>
     <tbody>
     @if ($user)
     @foreach ( $user as $index => $users )
             <tr>
-                <td>{{ $index + 1 }}</td>
-               {{--  <td> 
-                 @if ($users->photo)
-                      <img height="50" src="{{ asset('assets/images/'.$users->photo->photo_tag ) }}" alt="Photo"> 
-                 @else 
-                  <img src="{{ asset('assets/images/user.jpg' ) }}" alt="No Photo"> 
-                 @endif</td> --}}
-                <td>  {{ $users->name }} </td>
+                <td>{{ $index +1 }}</td>
+                <td>{{ $users->name }} </td>
                 <td>{{ $users->username?$users->username: "No Username" }}</td>
+                <td>
+                 @foreach ($users->blocks as $block)
+                        {{ $block->name }}  <br/>
+                 @endforeach  
+                </td>
                 <td>{{ $users->email }}</td>
                 <td>{{ $users->phone }}</td>
-                <td>
-                 @if( $users->gender == 1)
-                           Male
-                 @elseif($users->gender == 0)
-                         Female
-                 @elseif($users->gender == 2)
-                        Undiscribed
-                 @endif
-                </td>
+                <td>{{ $users->gender == 1 ? 'Male':'Female' }}</td>
                 <td>{{ $users->borndate }}</td>
                 <td>{{ $users->adress }}</td>
-                    <td>
-                     @foreach ($users->roles as $role)
-                        {{ $role->display_name }}  <br />
-                    @endforeach  
-                </td>
-
                 <td>
                  @if ($users->status)
                      <a class="btn btn-xs aqua"><i class="glyphicon glyphicon-ok"></i> Active</a>
@@ -83,9 +60,6 @@
                     <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Not_Active</a>
                     @endif 
                 </td> 
-                <td>
-                    <a href="{{ URL::to('permission/' . $users->id . '/edit')}}" class="btn btn-block btn-success"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>Edit Permission</a> </td>
-                   
             </tr>
     @endforeach
     @endif

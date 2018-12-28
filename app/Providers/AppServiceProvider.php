@@ -4,7 +4,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use View;
-use App\User;
+use Validator;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -18,7 +18,6 @@ class AppServiceProvider extends ServiceProvider
     {   
 
         Schema::defaultStringLength(191);
-
           
     }
 

@@ -8,10 +8,11 @@ class block extends Model
 {
 
     protected $fillable = [
-        'name','user_id', 'Area',
+        'name', 'Area','blockFee'
     ];
 
-    public function user(){
-        return $this->belongsTo('App\User');
+   public function users()
+     {
+        return $this->belongsToMany('App\User');
     }
  }

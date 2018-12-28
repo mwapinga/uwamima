@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->integer('gender');
             $table->date('borndate');
-            $table->integer('role_id');
             $table->string('adress');
             $table->string('password');
             $table->integer('status');

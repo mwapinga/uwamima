@@ -5,33 +5,18 @@
 <div class="page-content">
    @if ($success)
    <div class="alert alert-success">
-    <p>{{ $success }}</p>
+    <p>{{ $success }} {{ $mail }}</p>
     </div><br />
-     @endif
-     @if ($confirmation_code)
-     <div class="col-lg-12">
-        <h2> Regristration Code </h2>
-        <p>New User Should use This Code and the Email below to register and will Expire after 24 Hours</p><br>
-      </div>
-          <div class="col-lg-12 top20">
-          <div class="widgets-container">
-            <hr>
-        {{ $email }}
-        <hr>
-        {{ $confirmation_code }}
-        <hr>
    
-          </div>
-          </div>
      @else
       <div class="col-lg-12">
-        <h2> Enter New User Email Adress</h2>
+        <button class="btn btn-danger" > <h2>Enter New User Email Adress</h2></button>
       </div>
           <div class="col-lg-12 top20">
           <div class="widgets-container">
-          {!! Form::open(['method'=>'POST','action'=> 'permissionController@store']) !!}
+          {!! Form::open(['method'=>'POST','action'=> 'PermissiontrustController@store']) !!}
         
-         <div class="form-group col-xs-12 col-sm-5">
+         <div class="form-group">
                 {!! Form::label('email', 'New User Email:') !!}
                 {!! Form::email('email', null , ['class'=>'form-control','requuired','placeholder'=>'New User Email']) !!}
              @if ($errors->has('email'))
@@ -41,9 +26,7 @@
                 </span>
                </div>    
             @endif
-         </div>
-          <br><br><br>
-          <br><br>
+          </div>
           <div class="form-group">
            {!! Form::submit('GRANT ACCES TO NEW USER', ['class'=>'btn btn-danger']) !!}
          </div>

@@ -7,7 +7,7 @@
    <div class="row wrapper border-bottom page-heading">
       <div class="col-lg-6">
         <ol class="breadcrumb">
-          <li class="active"> <strong> Block  Form </strong> </li>
+          <li class="active"> <strong> Second Import  Form </strong> </li>
         </ol>
       </div>
     </div>
@@ -47,18 +47,6 @@
                     <div class="alert alert-danger" >
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('Area') }}</strong>
-                    </span>
-                    </div>
-                @endif
-             </div>
-             <div class="form-group">
-                    {!! Form::label('blockFee', 'Block Monthly Fee :') !!}
-                    {!! Form::number('blockFee', null, ['class'=>'form-control', 'required']) !!}
-
-                @if ($errors->has('blockFee'))
-                    <div class="alert alert-danger" >
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('blockFee') }}</strong>
                     </span>
                     </div>
                 @endif

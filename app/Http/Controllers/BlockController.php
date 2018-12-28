@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\block;
 use App\User;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+
 
 class BlockController extends Controller
 {
@@ -41,20 +43,30 @@ class BlockController extends Controller
         
           $this->validate($request, [
             'name' => 'required|string|max:255',
-           'BlockOwner' => 'required|string|max:255|exists:users,name',
-           'Area' => 'required|numeric',  
-         ]);
+           'BlockOwner' => 'nullable|string|max:255|exists:users,name',
+           'Area' => 'required|numeric|gte:1', 
+           'blockFee' => 'required|numeric|gte:1',
+         ],
+                 [ 'Area.gte' => 'The :attribute field can not be Less than 1.' , 
+                    'blockFee.gte' => 'The :attribute field can not be Less than 1.'
+
+                 ]
+       );
 
           $input = $request->all();
+          if($input['BlockOwner']){
           $user = User::where('name', $input['BlockOwner'])->get()->first();
-          $userId = $user->id;
           $token = $input['_token'];
-           unset($input['BlockOwner']);
-           unset($input['_token']);
+          unset($input['BlockOwner']);
 
-         $all  = array('_token' =>$token, 'user_id'=>$userId, )+$input;
+         $block = block::create($input);
 
-            $blck = block::create($all);
+         $user->blocks()->save($block);
+       }
+       else{
+        
+         $block = block::create($input);
+       }
 
           return redirect('uwablock')->with('success','Block Added Succesfull');
     }
@@ -77,10 +89,12 @@ class BlockController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
-    }
+    {  
+        $block = block::findorfail($id);
 
+        return view('admin.Blocks.edit', compact('block'));
+        
+         }
     /**
      * Update the specified resource in storage.
      *
@@ -89,8 +103,27 @@ class BlockController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+
+    {   
+
+         $blck = block::findorfail($id);
+         $this->validate($request, [
+            'name' => 'required|string|max:255',
+           'Area' => 'required|numeric|gte:1', 
+           'blockFee' => 'required|numeric|gte:1',
+         ], 
+          [ 'Area.gte' => 'The :attribute field can not be Less than 1.' , 
+            'blockFee.gte' => 'The :attribute field can not be Less than 1.'
+           ]
+
+       );
+
+          $input = $request->all();
+          $user = User::where('name', $input['BlockOwner'])->get()->first();
+          $userId = $user->id;
+          $blck->update($input);
+          return redirect('uwablock')->with('success','Block Edited Succesfull');
+          
     }
 
     /**
@@ -101,6 +134,8 @@ class BlockController extends Controller
      */
     public function destroy($id)
     {
-        //
+           $blck= block::findorfail($id);
+          $blck->delete();
+          return redirect('uwablock')->with('success', 'Block Deleted Succesfully'); 
     }
 }
