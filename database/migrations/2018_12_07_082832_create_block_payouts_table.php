@@ -16,6 +16,8 @@ class CreateBlockPayoutsTable extends Migration
         Schema::create('block_payouts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('block_id');
+            $table->date('Date');
+            $table->string('amount');
             $table->timestamps();
         });
     }

@@ -28,7 +28,8 @@
                                        <th>UserName</th>
                                        <th>Farmer Name</th>
                                        <th>Product</th>
-                                       <th>Type</th>
+                                       <th>Category</th>
+                                       <th>Size</th>
                                        <th>Date</th>
                                        <th>Amount</th>
                                        <th>Car T No.</th>
@@ -47,7 +48,8 @@
                                        <td>{{ ucfirst($impos->user->username) }}</td>
                                        <td>{{ ucfirst($impos->farmname) }}</td>
                                        <td>{{ $impos->product->name }}</td>
-                                       <td>{{ $impos->category->name }}</td>
+                                       <td> {{ ucfirst($impos->category->name)  }} </td>
+                                       <td> {{  ucfirst($impos->size->size)  }} </td>
                                        <td>{{ $impos->date }}</td>
                                        <td>{{ $impos->quantity }}</td>
                                        <td>{{ ucwords($impos->carnumber )}}</td>

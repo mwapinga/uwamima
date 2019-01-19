@@ -44,7 +44,7 @@ return [
     |
     */
     'user_models' => [
-        'users' => 'App\User',
+        'users' => 'App\model\admin\User',
     ],
 
     /*
@@ -61,17 +61,17 @@ return [
         /**
          * Role model
          */
-        'role' => 'App\Role',
+        'role' => 'App\model\admin\Role',
 
         /**
          * Permission model
          */
-        'permission' => 'App\Permission',
+        'permission' => 'App\model\admin\Permission',
 
         /**
          * Team model
          */
-        'team' => 'App\Team',
+        'team' => 'App\model\admin\Team',
 
     ],
 

@@ -17,9 +17,8 @@
           <div class="col-lg-6 top20">
           <div class="widgets-container">
             <h5>Fill the form Below</h5>
-     {!! Form::open(['method'=>'POST','action'=> 'ExportController@store']) !!}
-
-         <div class="form-group">
+     {!! Form::open(['method'=>'POST','route'=> 'uwadminexport.store']) !!}
+       <div class="form-group">
                 {!! Form::label('name', 'Owner Name:') !!}
                 {!! Form::text('name', null , ['class'=>'form-control', 'required']) !!}
              @if ($errors->has('name'))

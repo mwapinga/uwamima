@@ -26,7 +26,8 @@
                        <tr>            <th>No. </th>
                                        <th>Seller Name</th>
                                        <th>Product</th>
-                                       <th>Type</th>
+                                       <th>Category</th>
+                                       <th>Size</th>
                                        <th>Date</th>
                                        <th>Amount</th>
                                        <th>Price</th>
@@ -41,10 +42,13 @@
                                         <td>{{ $index+1 }}</td>
                                        <td>{{ $sales->user->name }}</td>
                                        <td>{{ $sales->product->name }}</td>
-                                       <td>{{ $sales->category->name }}</td>
+                                        <td>{{ ucfirst($sales->category->name)  }} </td>
+                                         <td> {{  ucfirst($sales->size->size) }} </td>
                                        <td>{{ $sales->date }}</td>
                                        <td>{{ $sales->quantity }}</td>
-                                       <td>{{ $sales->price }}</td>
+                                       <td> 
+                                     Tsh {{ number_format($sales->price, 2) }}
+                                     </td>
                                        <td>{{ $sales->sold_to }}</td>
                                      <td>
                                       <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwadminsale/'.$sales->id .'/edit')}}"> Edit Sales</a> </button>

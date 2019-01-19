@@ -19,7 +19,7 @@
           <div class="widgets-container">
             <h5>Fill the form Below</h5>
 
-         {!! Form::model($exp, ['method'=>'PATCH','action'=> ['ExportController@update' , $exp->id ]]) !!}
+         {!! Form::model($exp, ['method'=>'PATCH','route'=> ['uwadminexport.update' , $exp->id ]]) !!}
              {!! Form::hidden('id', $exp->id) !!}
          <div class="form-group col-xs-12 col-sm-3">
                 {!! Form::label('name', 'Owner Name:') !!}
@@ -72,7 +72,28 @@
                     </div><br />
              @endif
 
-         </div>  
+         </div> 
+              <div class="form-group col-xs-12 col-sm-3">
+             <label>Size Value</label>
+             <select id="size_id" name="size_id" class="form-control", required>
+                   @foreach($size as  $sizes)
+                    <option value="{{ $sizes->id }}" > {{ $sizes->size }} </option>
+                   @endforeach
+             </select>
+                @if ($errors->has('size_id'))
+                      <div class="alert alert-danger" >
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('size_id') }}</strong>
+                    </span>
+                   </div>
+                @endif
+                @if (\Session::has('success'))
+                      <div class="alert alert-danger">
+                      <p>{{ \Session::get('success') }}</p>
+                        </div><br />
+                 @endif
+
+             </div> 
 
           <div class="form-group col-xs-12 col-sm-3">
                 {!! Form::label('quantity', 'Quantity:') !!}
@@ -166,7 +187,7 @@
            {!! Form::submit('EDIT IMPORT', ['class'=>'btn btn-primary']) !!}
          </div>
          {!! Form::close() !!}
-         {!! Form::open(['method'=>'DELETE','action'=> ['ExportController@destroy',$exp->id]]) !!}  
+         {!! Form::open(['method'=>'DELETE','route'=> ['uwadminexport.destroy', $exp->id]]) !!}  
         {!! Form::submit('DELETE EXPORT', ['class'=>'btn red btn-block', 'onclick'=>'return confirm(\'are you sure you want to delete this import?\');']) !!}
         {!! Form::close() !!}
           </div>

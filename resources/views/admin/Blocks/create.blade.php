@@ -15,7 +15,7 @@
           <div class="widgets-container">
             <h5>Fill the form Below</h5>
 
-     {!! Form::open(['method'=>'POST','action'=> 'BlockController@store']) !!}  
+     {!! Form::open(['method'=>'POST','route' => 'uwablock.store']) !!}  
          <div class="form-group">
                 {!! Form::label('name', 'Block Name:') !!}
                 {!! Form::text('name', null , ['class'=>'form-control']) !!}
@@ -72,9 +72,5 @@
         </div>
   </div>
 </div>
-@stop
-@section('scripts')
 
-
- 
 @stop

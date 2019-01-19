@@ -8,9 +8,9 @@
 <div class="page-content">
    <div class="row wrapper border-bottom page-heading">
       <div class="col-lg-12">
-        <h2> EDIT IMPORT </h2>
+        <h2> EDIT SALES </h2>
         <ol class="breadcrumb">
-          <li class="active"> <strong>Edit Import  Form </strong> </li>
+          <li class="active"> <strong>Edit SALES  FORM </strong> </li>
         </ol>
       </div>
     </div>
@@ -19,7 +19,7 @@
           <div class="widgets-container">
             <h5>Fill the form Below</h5>
 
-         {!! Form::model($sale, ['method'=>'PATCH','action'=> ['uwadminsales@update' , $sale->id ]]) !!}
+         {!! Form::model($sale, ['method'=>'PATCH','route'=> ['uwadminsale.update', $sale->id ]]) !!}
              {!! Form::hidden('id', $sale->id) !!}
              <div class="form-group col-xs-12 col-sm-3">
                 {!! Form::label('name', 'Seller Name:') !!}
@@ -63,13 +63,37 @@
                 </span>
                </div>
             @endif
-            @if (\Session::has('success'))
+            @if (\Session::has('successcat'))
                   <div class="alert alert-danger">
-                  <p>{{ \Session::get('success') }}</p>
+                  <p>{{ \Session::get('successcat') }}</p>
                     </div><br />
              @endif
 
          </div>  
+           
+                <div class="form-group col-xs-12 col-sm-3">
+             <label>Size Value</label>
+             <select id="size_id" name="size_id" class="form-control", required>
+                   @foreach($size as  $sizes)
+                    <option value="{{ $sizes->id }}" > {{ $sizes->size }} </option>
+                   @endforeach
+             </select>
+                @if ($errors->has('size_id'))
+                      <div class="alert alert-danger" >
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('size_id') }}</strong>
+                    </span>
+                   </div>
+                @endif
+                @if (\Session::has('success'))
+                      <div class="alert alert-danger">
+                      <p>{{ \Session::get('success') }}</p>
+                        </div><br />
+                 @endif
+
+             </div>
+
+
           <div class="form-group col-xs-12 col-sm-3">
                 {!! Form::label('quantity', 'Quantity:') !!}
                 {!! Form::number('quantity', null, ['class'=>'form-control', 'required']) !!}
@@ -141,7 +165,7 @@
            {!! Form::submit('SUBMIT SALES', ['class'=>'btn btn-primary']) !!}
          </div>
          {!! Form::close() !!}
-         {!! Form::open(['method'=>'DELETE','action'=> ['uwadminsales@destroy',$sale->id]]) !!}  
+         {!! Form::open(['method'=>'DELETE','route'=> ['uwadminsale.destroy',$sale->id]]) !!}  
     {!! Form::submit('DELETE SALES', ['class'=>'btn red btn-block', 'onclick'=>'return confirm(\'are you sure you want to delete this import?\');']) !!}
         {!! Form::close() !!}
           </div>

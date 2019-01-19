@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +16,9 @@
     <!-- jvectormap -->
     <link href="{{ asset('assets/css/jqvmap.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/buttons.dataTables.min.css') }}" rel="stylesheet">
+    <link href='{{ asset('assets/css/fullcalendar.css') }}' rel='stylesheet' />
+    <link href='{{ asset('assets/css/fullcalendar.print.css') }}' rel='stylesheet' media='print' />
+    <link href="{{ asset('assets/css/skins/all.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/responsive.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/fixedHeader.dataTables.min.css') }}" rel="stylesheet">
@@ -30,13 +32,7 @@
     <link href="{{ asset('assets/css/morris.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/dark-grey.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/main.media.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/adminUIdemo.css') }}" rel="stylesheet">s
-    <link rel="stylesheet" href="{{ url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css') }}" />    
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <script src="{{ url('//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js') }}"></script>
-    <script src="{{ url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js') }}"></script> 
-
+    <link href="{{ asset('assets/css/adminUIdemo.css') }}" rel="stylesheet">
 </head>
 
 <body class="page-header-fixed ">
@@ -61,6 +57,11 @@
                    
                    
                     <!-- START USER LOGIN DROPDOWN -->
+                    <li>
+                        @if(Auth::user()->hasRole('Subscriber'))
+                            <a href="{{ URL::to('sub')}}" class="btn btn-info"><i aria-hidden="true"></i>SWITCH TO BLOCK OWNER</a> </td>
+                        @endif
+                    </li>
                     <li class="dropdown dropdown-user">
                         <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
                          @if (Auth::user()->photo)
@@ -113,8 +114,15 @@
                     <li class="nav-item">
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-user"></i> <span class="title">Manage User</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{ url('permission') }}">All User</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('permission') }}">Manage Permission</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('permission') }}">Manage User Permission</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-product-hunt"></i> <span class="title">Manage  Product</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="{{ url('product') }}">Available Products</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('product/create') }}">Add Products</a></li>
                         </ul>
                     </li>
 
@@ -197,7 +205,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="calendar.html"> <i class="icon-calendar"></i> <span class="title">Calendar</span> </a>
+                        <a class="nav-link" href="{{ url('calendar') }}"> <i class="icon-calendar"></i> <span class="title">Calendar</span> </a>
                     </li>
                
                     <li class="nav-item">
@@ -270,6 +278,21 @@
     <script type="text/javascript" src="{{ asset('assets/js/vendor/buttons.print.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/vendor/dataTables.responsive.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/vendor/dataTables.fixedHeader.min.js') }}"></script>
+
+
+
+<!-- slimscroll js -->
+<script type="text/javascript" src="{{ asset('assets/js/vendor/jquery.slimscroll.js') }}"></script>
+<!-- icheck -->
+<script src="{{ asset('assets/js/vendor/icheck.js') }}"></script>
+<!-- fullcalendar -->
+<script src="{{ asset('assets/js/vendor/lib/moment.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/lib/jquery-ui.custom.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/fullcalendar.min.js') }}"></script>
+<!-- pace js -->
+<script src="{{ asset('assets/js/vendor/pace/pace.min.js') }}"></script>
+<!-- Sparkline -->
+<script src="{{ asset('assets/js/vendor/jquery.sparkline.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/vendor/chartJs/Chart.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard1.js') }}"></script>
@@ -452,6 +475,106 @@
 
 
         });
+
+
+      $(document).ready(function() {
+    $('#drop-remove').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue'
+    });
+
+    /* initialize the external events
+    -----------------------------------------------------------------*/
+
+    $('#external-events .fc-event').each(function() {
+
+        // store data so the calendar knows to render an event upon drop
+        $(this).data('event', {
+            title: $.trim($(this).text()), // use the element's text as the event title
+            stick: true // maintain when user navigates (see docs on the renderEvent method)
+        });
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+            zIndex: 999,
+            revert: true, // will cause the event to go back to its
+            revertDuration: 0 //  original position after the drag
+        });
+
+    });
+
+    /* initialize the calendar
+          -----------------------------------------------------------------*/
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        height: 500,
+        editable: true,
+        droppable: true, // this allows things to be dropped onto the calendar
+        drop: function() {
+            // is the "remove after drop" checkbox checked?
+            if ($('#drop-remove').is(':checked')) {
+                // if so, remove the element from the "Draggable Events" list
+                $(this).remove();
+            }
+        },
+        events: [{
+                title: 'All Day Event',
+                start: new Date(y, m, 1)
+            },
+            {
+                title: 'Long Event',
+                start: new Date(y, m, d - 5),
+                end: new Date(y, m, d - 2)
+            },
+            {
+                id: 999,
+                title: 'Repeating Event',
+                start: new Date(y, m, d - 3, 16, 0),
+                allDay: false
+            },
+            {
+                id: 999,
+                title: 'Repeating Event',
+                start: new Date(y, m, d + 4, 16, 0),
+                allDay: false
+            },
+            {
+                title: 'Meeting',
+                start: new Date(y, m, d, 10, 30),
+                allDay: false
+            },
+            {
+                title: 'Lunch',
+                start: new Date(y, m, d, 12, 0),
+                end: new Date(y, m, d, 14, 0),
+                allDay: false
+            },
+            {
+                title: 'Birthday Party',
+                start: new Date(y, m, d + 1, 19, 0),
+                end: new Date(y, m, d + 1, 22, 30),
+                allDay: false
+            },
+            {
+                title: 'Click for Google',
+                start: new Date(y, m, 28),
+                end: new Date(y, m, 29),
+                url: 'http://google.com/'
+            }
+        ]
+    });
+
+});
+
     </script>
 
 </body>

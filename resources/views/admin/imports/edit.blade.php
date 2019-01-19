@@ -19,7 +19,7 @@
           <div class="widgets-container">
             <h5>Fill the form Below</h5>
 
-         {!! Form::model($imp, ['method'=>'PATCH','action'=> ['importsController@update' , $imp->id ]]) !!}
+         {!! Form::model($imp, ['method'=>'PATCH','route'=> ['uwadminimport.update' , $imp->id ]]) !!}
              {!! Form::hidden('id', $imp->id) !!}
          <div class="form-group col-xs-12 col-sm-3">
                 {!! Form::label('name', 'Owner Name:') !!}
@@ -34,12 +34,12 @@
         
          </div>
            <div class="form-group col-xs-12 col-sm-3">
-                {!! Form::label('farmername', 'Farmer Name:') !!}
-                {!! Form::text('farmername', null , ['class'=>'form-control']) !!}
-             @if ($errors->has('farmername'))
+                {!! Form::label('farmname', 'Farmer Name:') !!}
+                {!! Form::text('farmname', null , ['class'=>'form-control']) !!}
+             @if ($errors->has('farmname'))
                <div class="alert alert-danger" >
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('farmername') }}</strong>
+                    <strong>{{ $errors->first('farmname') }}</strong>
                 </span>
                </div>    
             @endif
@@ -85,6 +85,29 @@
              @endif
 
          </div>  
+
+              <div class="form-group col-xs-12 col-sm-3">
+             <label>Size Value</label>
+             <select id="size_id" name="size_id" class="form-control", required>
+                   @foreach($size as  $sizes)
+                    <option value="{{ $sizes->id }}" > {{ $sizes->size }} </option>
+                   @endforeach
+             </select>
+                @if ($errors->has('size_id'))
+                      <div class="alert alert-danger" >
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('size_id') }}</strong>
+                    </span>
+                   </div>
+                @endif
+                @if (\Session::has('success'))
+                      <div class="alert alert-danger">
+                      <p>{{ \Session::get('success') }}</p>
+                        </div><br />
+                 @endif
+
+             </div>
+
 
           <div class="form-group col-xs-12 col-sm-3">
                 {!! Form::label('quantity', 'Quantity:') !!}
@@ -178,7 +201,7 @@
            {!! Form::submit('EDIT IMPORT', ['class'=>'btn btn-primary']) !!}
          </div>
          {!! Form::close() !!}
-         {!! Form::open(['method'=>'DELETE','action'=> ['importsController@destroy',$imp->id]]) !!}  
+         {!! Form::open(['method'=>'DELETE','route'=> ['uwadminimport.destroy',$imp->id]]) !!}  
         {!! Form::submit('DELETE IMPORT', ['class'=>'btn red btn-block', 'onclick'=>'return confirm(\'are you sure you want to delete this import?\');']) !!}
         {!! Form::close() !!}
           </div>

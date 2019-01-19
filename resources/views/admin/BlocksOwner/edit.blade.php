@@ -42,7 +42,7 @@
                         <td>{{ $index + 1 }}</td>
                          <td> {{ $user->name }} </td> 
                        <td>
-            {!! Form::open(['method'=>'DELETE','action'=> ['BlockOwnerController@destroy',$user->id]]) !!}
+            {!! Form::open(['method'=>'DELETE','route'=> ['blockowner.store',$user->id]]) !!}
             {!! Form::hidden('blockId', $blck->id) !!}
             {!! Form::submit('REMOVE OWNER', ['class'=>'btn  btn-danger' ,  'onclick'=>'return confirm(\'are you sure you want to Remove this user?\')' ]) !!}
             {!! Form::close() !!}   
@@ -68,7 +68,7 @@
               </ol>
             <div class="widgets-container">
 
-    {!! Form::open(['method'=>'POST','action'=> 'BlockOwnerController@store']) !!}
+    {!! Form::open(['method'=>'POST','route'=> 'blockowner.store']) !!}
               
               {!! Form::hidden('blockId', $blck->id) !!}
               <div class="form-group">

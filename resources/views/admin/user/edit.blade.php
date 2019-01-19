@@ -14,7 +14,7 @@
     <p>Fill The Form Below</p>
 
       
-     {!! Form::model(Auth::user(), ['method'=>'PATCH','action'=> ['UserController@update' , Auth::user()->id ]]) !!}
+     {!! Form::model(Auth::user(), ['method'=>'PATCH','route'=> ['uwadminuser.update' , Auth::user()->id ]]) !!}
             
       {!! Form::hidden('id', Auth::user()->id) !!}
       

@@ -81,11 +81,11 @@
             </div>
             <div class="ibox">
               <div class="widgets-container">
-                @if ($user->photo)
+                @if (Auth::user()->photo)
                  <H3> Thanks For Using UWAMIMA DASHBOARD TRUST IS THE KEY</H3>
                   @else
                  <div class="form-group">
-                {!! Form::open(['method'=>'POST','action'=> 'UserController@store','files'=>true]) !!}
+                {!! Form::open(['method'=>'POST','route'=> 'uwadminuser.store','files'=>true]) !!}
                 {!! Form::label('photo_id', 'Add Profile Photo Please:',['class'=>'form-control']) !!} 
                 {!! Form::file('photo_id', ['class'=>'form-control']) !!}
                 {!! Form::submit('Add Photo', ['class'=>'btn aqua btn-block']) !!}

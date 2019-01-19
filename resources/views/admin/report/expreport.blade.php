@@ -18,7 +18,7 @@
            <hr>
             <h4>For single day date enter the same Date in Both fields (Start Date :: End Date)</h4>
 
-                        {!! Form::open(['method'=>'POST','action'=> 'ReportController@export']) !!}
+                        {!! Form::open(['method'=>'POST','route'=> 'report.exp.export']) !!}
 
                         <div class="form-group col-xs-12 col-sm-3">
                         {!! Form::label('fromdate', 'Start Date:') !!}
@@ -72,11 +72,11 @@
                   <div >
                     <table id="example7" class="display nowrap table  responsive nowrap table-bordered">
                       <thead>
-                       <tr>            <th>No. </th>
+                      <tr>            <th>No. </th>
                                        <th>Owner</th>
                                        <th>UserName</th>
-                                       <th>Farmer Name</th>
                                        <th>Product</th>
+                                       <th>Size</th>
                                        <th>Type</th>
                                        <th>Date</th>
                                        <th>Amount</th>
@@ -87,19 +87,20 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                         @foreach ( $exp as $index => $impos )     
-                                      <td>{{ $index+1 }}</td>
-                                       <td>{{ ucfirst($impos->user->name) }}</td>
-                                       <td>{{ ucfirst($impos->user->username) }}</td>
-                                       <td>{{ ucfirst($impos->farmname) }}</td>
-                                       <td>{{ $impos->product->name }}</td>
-                                       <td>{{ $impos->category->name }}</td>
-                                       <td>{{ $impos->date }}</td>
-                                       <td>{{ $impos->quantity }}</td>
-                                       <td>{{ ucwords($impos->carnumber )}}</td>
-                                       <td>{{ ucfirst($impos->drivername) }}</td>
-                                       <td>{{ $impos->intime }}</td>
-                                       <td>{{ $impos->outime }}</td>
+                         @foreach ( $exp as $index => $expos )
+                                        <tr>
+                                        <td>{{ $index+1 }}</td>
+                                       <td>{{ ucfirst($expos->user->name) }}</td>
+                                       <td>{{ ucfirst($expos->user->username) }}</td>
+                                       <td>{{ $expos->product->name }}</td>
+                                       <td> {{ ucfirst($expos->category->name)}} </td>
+                                       <td> {{ ucfirst($expos->size->size)  }} </td>
+                                       <td>{{ $expos->date }}</td>
+                                       <td>{{ $expos->quantity }}</td>
+                                       <td>{{ ucwords($expos->carnumber) }}</td>
+                                       <td>{{ ucfirst($expos->drivername) }}</td>
+                                       <td>{{ $expos->intime }}</td>
+                                       <td>{{ $expos->outime }}</td>
                                     </tr>
                            @endforeach
                                     

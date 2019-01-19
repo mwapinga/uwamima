@@ -29,6 +29,7 @@
                                        <th>Area Meter Square</th>
                                        <th>Monthly Fee</th>
                                        <th>Created </th>
+                                       <th>PayMent</th>
                                        <th>Edit Options</th>
                                     </tr>
                                  </thead>
@@ -44,8 +45,10 @@
                                         @endforeach     
                                        </td>
                                        <td>{{ $impos->Area }} M Square</td>
-                                       <td>{{ $impos->blockFee }}</td>
+                                       <td> Tsh {{ number_format($impos->blockFee, 2) }}</td>
                                        <td> {{ $impos->created_at->diffForHumans() }}
+                                   <td>
+                    <a href="{{ URL::to('payout/'. $impos->id)}}" class="btn btn-block btn-success"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>Block Payment</a> </td>
                                        <td>
          <button type="button" class="btn blue btn-outline btn-xs"><a href="{{ URL::to('uwablock/' . $impos->id . '/edit')}}"> Edit Block</a> </button>
                                         </td>

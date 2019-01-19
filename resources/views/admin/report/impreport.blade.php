@@ -18,7 +18,7 @@
            <hr>
             <h4>For single day date enter the same Date in Both fields (Start Date :: End Date)</h4>
 
-                        {!! Form::open(['method'=>'POST','action'=> 'ReportController@store']) !!}
+                        {!! Form::open(['method'=>'POST','route'=> 'report.store']) !!}
 
                         <div class="form-group col-xs-12 col-sm-3">
                         {!! Form::label('fromdate', 'Start Date:') !!}
@@ -72,12 +72,13 @@
                   <div >
                     <table id="example7" class="display nowrap table  responsive nowrap table-bordered">
                       <thead>
-                       <tr>            <th>No. </th>
+                        <tr>            <th>No. </th>
                                        <th>Owner</th>
                                        <th>UserName</th>
                                        <th>Farmer Name</th>
                                        <th>Product</th>
-                                       <th>Type</th>
+                                       <th>Category</th>
+                                       <th>Size</th>
                                        <th>Date</th>
                                        <th>Amount</th>
                                        <th>Car T No.</th>
@@ -88,13 +89,14 @@
                                  </thead>
                                  <tbody>
                          @foreach ( $imp as $index => $impos )
-                                        
-                                      <td>{{ $index+1 }}</td>
+                 
+                                        <td>{{ $index+1 }}</td>
                                        <td>{{ ucfirst($impos->user->name) }}</td>
                                        <td>{{ ucfirst($impos->user->username) }}</td>
                                        <td>{{ ucfirst($impos->farmname) }}</td>
                                        <td>{{ $impos->product->name }}</td>
-                                       <td>{{ $impos->category->name }}</td>
+                                       <td> {{ ucfirst($impos->category->name)  }} </td>
+                                       <td> {{  ucfirst($impos->size->size)  }} </td>
                                        <td>{{ $impos->date }}</td>
                                        <td>{{ $impos->quantity }}</td>
                                        <td>{{ ucwords($impos->carnumber )}}</td>

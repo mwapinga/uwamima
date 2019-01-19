@@ -27,6 +27,7 @@
                                        <th>Owner</th>
                                        <th>UserName</th>
                                        <th>Product</th>
+                                       <th>Size</th>
                                        <th>Type</th>
                                        <th>Date</th>
                                        <th>Amount</th>
@@ -40,12 +41,13 @@
                                  <tbody>
                           @if ($exp)
                          @foreach ( $exp as $index => $expos )
-                 
+                                        <tr>
                                         <td>{{ $index+1 }}</td>
                                        <td>{{ ucfirst($expos->user->name) }}</td>
                                        <td>{{ ucfirst($expos->user->username) }}</td>
                                        <td>{{ $expos->product->name }}</td>
-                                       <td>{{ $expos->category->name }}</td>
+                                       <td> {{ ucfirst($expos->category->name)}} </td>
+                                       <td> {{ ucfirst($expos->size->size)  }} </td>
                                        <td>{{ $expos->date }}</td>
                                        <td>{{ $expos->quantity }}</td>
                                        <td>{{ ucwords($expos->carnumber) }}</td>

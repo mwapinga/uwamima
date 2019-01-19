@@ -17,7 +17,9 @@ class CreateTemposTable extends Migration
             $table->increments('id');
             $table->integer('product_id');
             $table->integer('category_id');
+            $table->integer('size_id');
             $table->integer('quantity');
+            $table->integer('price');
             $table->timestamps();
         });
     }

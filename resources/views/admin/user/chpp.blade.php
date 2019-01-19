@@ -1,4 +1,9 @@
-@extends('layouts.admin')
+@if (Auth::user()->hasRole('Admin','Editor'))
+    @extends('layouts.admin')
+@else
+    @extends('layouts.subscriber') 
+@endif
+
 
 
 
@@ -7,9 +12,9 @@
 <div class="page-content">
 <div class="middle-box text-center loginscreen   ">
   <div class="widgets-container">
-    <h3>EDIT PERMISSION FOR</h3>
+    <h3>USER CHANGE PASSWORD</h3>
 
-       {!! Form::open(['method'=>'DELETE','action'=> ['UserController@destroy',Auth::user()->id]]) !!}    
+       {!! Form::open(['method'=>'DELETE','route'=> ['uwadminuser.destroy',Auth::user()->id]]) !!}    
          <div class="form-group">
             <p>Enter Your Old Password</p>
             <input id="old_password" placeholder="*Old_password" type="password" class="form-control"  name="old_password" required>  

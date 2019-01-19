@@ -33,11 +33,11 @@
 
 <body class="login">
   <div class="logo">
-    <a href="#"> <img src='assets/images/logo.png' alt=""> </a>
+    <a href="#"> <img src='{{ asset('assets/images/logo.png') }}' alt=""> </a>
   </div>
   <div class="middle-box text-center loginscreen ">
     <div class="widgets-container">
-      <div class="bottom20"> <img alt="image" class="img-circle circle-border" src="assets/images/user.jpg"> </div>
+      <div class="bottom20"> <img alt="image" class="img-circle circle-border" src="{{ asset('assets/images/user.jpg') }}"> </div>
           <h2>Welcome To UWAMIMA</h2>
             <h4>Please Login </h4>
            <form method="POST" action="{{ route('login') }}">

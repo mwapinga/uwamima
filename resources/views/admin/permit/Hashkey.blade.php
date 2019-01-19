@@ -14,7 +14,7 @@
       </div>
           <div class="col-lg-12 top20">
           <div class="widgets-container">
-          {!! Form::open(['method'=>'POST','action'=> 'PermissiontrustController@store']) !!}
+          {!! Form::open(['method'=>'POST','route'=> 'permission.store']) !!}
         
          <div class="form-group">
                 {!! Form::label('email', 'New User Email:') !!}

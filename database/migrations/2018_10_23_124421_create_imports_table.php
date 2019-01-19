@@ -20,6 +20,7 @@ class CreateImportsTable extends Migration
             $table->integer('block_id');
             $table->integer('product_id');
             $table->integer('category_id');
+            $table->integer('size_id');
             $table->string('carnumber');
             $table->string('drivername');
             $table->integer('quantity');

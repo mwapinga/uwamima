@@ -17,7 +17,7 @@
           <div class="col-lg-6 top20">
           <div class="widgets-container">
             <h5>Fill the form Below</h5>
-     {!! Form::open(['method'=>'POST','action'=> 'uwadminsales@store']) !!}
+     {!! Form::open(['method'=>'POST','route'=> 'uwadminsale.store']) !!}
         
          <div class="form-group">
                 {!! Form::label('name', 'Seller Name:') !!}

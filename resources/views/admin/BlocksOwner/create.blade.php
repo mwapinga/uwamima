@@ -15,7 +15,7 @@
           <div class="widgets-container">
             <h5>Fill the form Below</h5>
 
-     {!! Form::open(['method'=>'POST','action'=> 'BlockController@store']) !!}  
+     {!! Form::open(['method'=>'POST','route'=> 'blockowner.store']) !!}  
          <div class="form-group">
                 {!! Form::label('name', 'Block Name:') !!}
                 {!! Form::text('name', null , ['class'=>'form-control']) !!}

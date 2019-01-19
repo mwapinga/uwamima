@@ -9,7 +9,7 @@
   <div class="widgets-container">
     <h3>DELETE USER</h3>
     <p>{{ $users->name }} </p>   
-                 {!! Form::open(['method'=>'DELETE','action'=> ['PermissiontrustController@destroy',$users->id]]) !!} 
+                 {!! Form::open(['method'=>'DELETE','route'=> ['permission.destroy',$users->id]]) !!} 
                      <div class="form-group">
                     <p>Enter your Password To Delete This User</p>
                     <input id="password" placeholder="*Password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"  name="password" required>  

@@ -18,7 +18,7 @@
            <hr>
             <h4>For single day date enter the same Date in Both fields (Start Date :: End Date)</h4>
 
-                        {!! Form::open(['method'=>'POST','action'=> 'ReportController@saleput']) !!}
+                        {!! Form::open(['method'=>'POST','route'=> 'report.sale.saleput']) !!}
 
                         <div class="form-group col-xs-12 col-sm-3">
                         {!! Form::label('fromdate', 'Start Date:') !!}
@@ -75,23 +75,28 @@
                        <tr>            <th>No. </th>
                                        <th>Seller Name</th>
                                        <th>Product</th>
-                                       <th>Type</th>
+                                       <th>Category</th>
+                                       <th>Size</th>
                                        <th>Date</th>
                                        <th>Amount</th>
                                        <th>Price</th>
                                        <th>Buyer</th>
+    
                                     </tr>
                                  </thead>
                                  <tbody>
-                         @foreach ($sale as $index => $sales )
+                         @foreach ( $sale as $index => $sales )
                  
                                         <td>{{ $index+1 }}</td>
                                        <td>{{ $sales->user->name }}</td>
                                        <td>{{ $sales->product->name }}</td>
-                                       <td>{{ $sales->category->name }}</td>
+                                        <td>{{ ucfirst($sales->category->name)  }} </td>
+                                         <td> {{  ucfirst($sales->size->size) }} </td>
                                        <td>{{ $sales->date }}</td>
                                        <td>{{ $sales->quantity }}</td>
-                                       <td>{{ $sales->price }}</td>
+                                       <td> 
+                                     Tsh {{ number_format($sales->price, 2) }}
+                                     </td>
                                        <td>{{ $sales->sold_to }}</td>
                                     </tr>
                      @endforeach                                    

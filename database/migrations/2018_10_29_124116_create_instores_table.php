@@ -15,10 +15,12 @@ class CreateInstoresTable extends Migration
     {
         Schema::create('instores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('product_id');
-            $table->integer('category_id');
-            $table->integer('quantity');
+            $table->integer('product_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('size_id')->unsigned()->nullable();
+            $table->integer('quantity')->unsigned();
+            $table->string('type');
+            $table->string('trans_id');
             $table->timestamps();
         });
     }
