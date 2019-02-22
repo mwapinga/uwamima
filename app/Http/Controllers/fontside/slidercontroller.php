@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\fontside;
 
-//use Illuminate\Http\Request;
-use App\slider;
-use App\photo;
-use App\Http\Requests\Admin1REequest;
+use Illuminate\Http\Request;
+use App\model\admin\slider;
+use App\model\admin\Photo;
 use Carbon\Carbon;
 use Image;
 use App\Http\Controllers\Controller;
@@ -13,7 +12,7 @@ use App\Http\Controllers\Controller;
 class slidercontroller extends Controller
 {
        public function index()
-    {   
+    {
 
      $slider= slider::all();
         return view('admins.slider.index' , compact('slider'));
@@ -35,22 +34,29 @@ class slidercontroller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Admin1REequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+        'tags1' => 'nullable| max:150 | string',
+        'tags2' => 'nullable| max:150 | string',
+        'photo_id' => 'required|file|mimes:jpeg,gif,png|max:8000',
+        'status'  => 'required',
+          ]);
+
          $input = $request->all();
 
         if($file = $request->file('photo_id')){
 
-        $name = rand(11111,99999).'_'.time() .'_'. $file->getClientOriginalName();
-        $file->move('images/', $name);
-        $thumbnailpath = public_path('images/'.$name);        
-         $img = Image::make($thumbnailpath)->resize(1024, 640)->save($thumbnailpath); 
-         $photo = photo::create(['photo_tag'=> $name]);
+        $name = rand(11111,99999).'_'.time() .'__'. $file->getClientOriginalName();
+        $file->move('asset/images/', $name);
+        $thumbnailpath = public_path('asset/images/'.$name);
+         $img = Image::make($thumbnailpath)->resize(1920, 970)->save($thumbnailpath);
+         $photo = Photo::create(['photo_tag'=> $name]);
          $input['photo_id']=$photo->id;
         }
         slider::create($input);
         return redirect('slide')->with('success', 'Slider Added Succesfully');
-        
+
 
     }
 
@@ -84,33 +90,36 @@ class slidercontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Admin1REequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'tags1' => 'nullable| max:150 | string',
+            'tags2' => 'nullable| max:150 | string',
+            'photo_id' => 'nullable|file|mimes:jpeg,gif,png|max:8000',
+            'status'  => 'required',
+              ]);
+
           $slide= slider::findorfail($id);
-   
+
         $input = $request->all();
 
         if($file = $request->file('photo_id'))
-        {  
-            if (file_exists(public_path()."\images\\". $slide->photo->photo_tag)) {
-              unlink(public_path()."\images\\". $slide->photo->photo_tag);
-              $photos = photo::findorfail($slide->photo_id);
+        {
+            if (file_exists(public_path()."\asset\images\\". $slide->photo->photo_tag)) {
+              unlink(public_path()."\asset\images\\". $slide->photo->photo_tag);
+              $photos = Photo::findorfail($slide->photo_id);
               $photos->delete();
             }
 
         $name = rand(11111,99999).'_'.time() .'_'. $file->getClientOriginalName();
-        $file->move('images/', $name);
-        $thumbnailpath = public_path('images/'.$name);
-        // $img = Image::make($thumbnailpath)->resize(1024, 640, function($constraint) {
-        //     $constraint->aspectRatio();
-        // });
-        // $img->save($thumbnailpath);    
-          $img = Image::make($thumbnailpath)->resize(1120, 580)->save($thumbnailpath);   
-         $photo = photo::create(['photo_tag'=> $name]);
+        $file->move('asset/images/', $name);
+        $thumbnailpath = public_path('asset/images/'.$name);
+          $img = Image::make($thumbnailpath)->resize(1920, 970)->save($thumbnailpath);
+         $photo = Photo::create(['photo_tag'=> $name]);
          $input['photo_id']=$photo->id;
-            
+
               }
-    
+
               $slide->update($input);
               return redirect('slide')->with('success', 'Slider Edited Succesfully');
 
@@ -128,9 +137,9 @@ class slidercontroller extends Controller
     {
         $slide= slider::findorfail($id);
 
-       if (file_exists(public_path()."\images\\". $slide->photo->photo_tag)) {
-              unlink(public_path()."\images\\". $slide->photo->photo_tag);
-              $photos = photo::findorfail($slide->photo_id);
+       if (file_exists(public_path()."\asset\images\\". $slide->photo->photo_tag)) {
+              unlink(public_path()."\asset\images\\". $slide->photo->photo_tag);
+              $photos = Photo::findorfail($slide->photo_id);
               $photos->delete();
             }
        $slide->delete();

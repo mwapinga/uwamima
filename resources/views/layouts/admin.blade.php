@@ -49,28 +49,23 @@
 <!--  TOP NAVIGATION MENU -->
                 <div class="hor-menu  hor-menu-light hidden-sm hidden-xs">
                     <ul class="nav navbar-nav">
-                        <li class="mega-menu-dropdown mega-menu-full hover-initialized"> <a  href="{{ url('/uwadmin') }}"><h3>UWAMIMA CONROL MANAGEMENT SYSTEM DASHBOARD</h3> </a>
+                        <li class="mega-menu-dropdown mega-menu-full hover-initialized"> <a  href="{{ url('/uwadmin') }}"><h3>UWAMIMA </h3> </a>
                 </div>
                 <!--  TOP NAVIGATION MENU -->
-               
+
                 <ul class="nav navbar-nav pull-right">
-                   
-                   
+
+
                     <!-- START USER LOGIN DROPDOWN -->
-                    <li>
-                        @if(Auth::user()->hasRole('Subscriber'))
-                            <a href="{{ URL::to('sub')}}" class="btn btn-info"><i aria-hidden="true"></i>SWITCH TO BLOCK OWNER</a> </td>
-                        @endif
-                    </li>
                     <li class="dropdown dropdown-user">
                         <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
                          @if (Auth::user()->photo)
-                              <img src="{{ asset('assets/images/'.Auth::user()->photo->photo_tag ) }}" alt="Photo"> 
-                         @else 
-                          <img src="{{ asset('assets/images/user.jpg' ) }}" alt="No Photo"> 
+                              <img src="{{ asset('assets/images/'.Auth::user()->photo->photo_tag ) }}" alt="Photo">
+                         @else
+                          <img src="{{ asset('assets/images/user.jpg' ) }}" alt="No Photo">
                          @endif
-                        
-                         <span class="username username-hide-on-mobile">  {{ Auth::user()->name }} 
+
+                         <span class="username username-hide-on-mobile">  {{ Auth::user()->name }}
                          </span> <i class="fa fa-angle-down"></i> </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
@@ -117,39 +112,13 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url('permission') }}">Manage User Permission</a></li>
                         </ul>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-product-hunt"></i> <span class="title">Manage  Product</span> <span class="arrow"></span> </a>
+                        <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-clone"></i> <span class="title">Manage Stock</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{ url('product') }}">Available Products</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('product/create') }}">Add Products</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/product') }}"> Add Products </a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('uwablock/create') }}">Edit product Stock</a></li>
                         </ul>
-                    </li>
-
-                   <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-long-arrow-left"></i> <span class="title">Manage Imports</span> <span class="arrow"></span> </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminimport') }}">All Imports</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('addmore/create') }}">Add Import</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('report') }}">Imports Reports</a></li>
-                        </ul>
-                    </li>
-                   <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-long-arrow-right"></i> <span class="title">Manage Exports</span> <span class="arrow"></span> </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminexport') }}">All Exports</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('/addmore') }}">Add Export</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('report/create') }}">Exports Reports</a></li>
-                        </ul>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-exchange"></i> <span class="title">Manage Sales</span> <span class="arrow"></span> </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwadminsale') }}">All Sales</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('/sale') }}">Add Sale</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('/salerep') }}">Sales Reports</a></li>
-                        </ul>
-                    </li>
+                      </li>
                       <li class="nav-item">
                         <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-align-center"></i> <span class="title">Manage Orders</span> <span class="arrow"></span> </a>
                         <ul class="sub-menu">
@@ -157,80 +126,22 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url('report/orders') }}">Oders Reports</a></li>
                         </ul>
                       </li>
-                       <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-clone"></i> <span class="title">Manage Block</span> <span class="arrow"></span> </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwablock') }}">All Blocks</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('uwablock/create') }}">Add Block</a></li>
-                        </ul>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="{{ url('blockowner') }}"> <i class="fa fa-address-card-o"></i> <span class="title">Manage Block Owner</span> <span class="arrow"></span> </a>
-                        </li>
                 <li class="heading">
-                        <h3 class="uppercase">Layouts</h3>
+                    <a href="{{ url('/slide') }}" > <h5  class="uppercase">manage Layouts</h5></a>
                  </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title"> Slider</span> <span class="arrow"></span> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title"> Portfolio</span> <span class="arrow"></span> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title"> Testamony</span> <span class="arrow"></span> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title"> Orders</span> <span class="arrow"></span> </a>
-                </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-paper-plane"></i> <span class="title">Horizontal Menu</span> <span class="arrow"></span> </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_menu_dark.html"> <span class="title">Dark Horizontal Menu </span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="layout_menu_light.html"> <span class="title">Light Horizontal Menu </span> </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="heading">
-                        <h3 class="uppercase">Pages</h3>
-                    </li>
-                    <li> <a class="nav-link nav-toggle" href="javascript:;"><i class="fa fa-envelope"></i> <span class="title">Mailbox </span><span class="label label-warning pull-right">16/70</span></a>
-                        <ul class="sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="mailbox.html">Inbox</a></li>
-                            <li class="nav-item"><a class="nav-link" href="mail_detail.html">Email view</a></li>
-                            <li class="nav-item"><a class="nav-link" href="mail_compose.html">Compose email</a></li>
-                            <li class="nav-item"><a class="nav-link" href="email_template.html">Email templates</a></li>
-                        </ul>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('calendar') }}"> <i class="icon-calendar"></i> <span class="title">Calendar</span> </a>
                     </li>
-               
+
                     <li class="nav-item">
-                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-sitemap"></i> <span class="title">Multi Level Menu</span> <span class="arrow "></span> </a>
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-sitemap"></i> <span class="title">Cusomer Info</span> <span class="arrow "></span> </a>
                         <ul class="sub-menu">
                             <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> Item 1 <span class="arrow"></span> </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item"> <a class="nav-link" href="javascript:;"> Arrow Toggle <span class="arrow nav-toggle"></span> </a>
-                                        <ul class="sub-menu">
-                                            <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
-                                            <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
-                                            <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
-                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 2</a> </li>
-                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 3</a> </li>
-                                </ul>
-                            </li>
+                                     </li>
                             <li class="nav-item"> <a class="nav-link" href="javascript:;"> Arrow Toggle <span class="arrow nav-toggle"></span> </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
-                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
-                                    <li class="nav-item"> <a class="nav-link" href="#"> Sample Link 1</a> </li>
-                                </ul>
+                               
                             </li>
                             <li class="nav-item"> <a class="nav-link" href="#"> Item 3 </a> </li>
                         </ul>
@@ -244,11 +155,11 @@
                <div class="footer" style="position: fixed;">
                     <div class="pull-right">
                         <ul class="list-inline">
-                            
+
                         </ul>
                     </div>
                     <div> <strong>Copyright</strong> UWAMIMA ORGANISATION &copy; @php
-                       echo  date("Y") 
+                       echo  date("Y")
                     @endphp </div>
                 </div>
             </div>
@@ -363,8 +274,8 @@
                         headerOffset: 40
                     }
                 } );
- 
- 
+
+
             // Check Click row
 
             var table = $('#example3').DataTable();
@@ -402,7 +313,7 @@
                     title: "Edit Option"
                 }]
             });
-            //addRow 
+            //addRow
             var t = $('#example5').DataTable();
             var counter = 1;
 

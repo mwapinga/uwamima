@@ -1,20 +1,19 @@
 <?php
 
 namespace App\Http\Controllers\fontside;
-            use App\beststudents;
-            use App\events;
-            use App\testimonial;
-            use App\slider;
-            use App\staffs;
-            use App\labaratory;
-            use App\Blog;
-            use App\Facts;
-            use App\subscriber;
-            use App\Http\Requests\homepagereq;
+            // use App\model\admin\beststudents;
+            use App\model\admin\event;
+            use App\model\admin\testimonial;
+            use App\model\admin\slider;
+            // use App\model\admin\staffs;
+            use App\model\admin\subscriber;
             use Illuminate\Http\Request;
             use Illuminate\Support\Facades\Session;
 
 use App\Http\Controllers\Controller;
+use App\model\admin\portfolio;
+use App\model\admin\blog;
+use App\model\admin\Facts;
 
 
 class PagesController extends Controller
@@ -23,23 +22,25 @@ class PagesController extends Controller
 
     public function index()
     {
-       
-        // $event= events::all();
-        // $test = testimonial::all();
-        // $slider= slider::all();
-        // $stafs = staffs::all();
-        // $lab = labaratory::all();
-        // $news = Blog::all();
-        // $fact = Facts::all();
-        // compact('bestdents','event','test','lab','stafs','slider','news','fact')
+
+        $event= event::with('photo')->orderBy('id','desc')->take(1)->get();
+        $test = testimonial::with('photo')->orderBy('id','desc')->take(5)->get();
+        $slider= slider::with('photo')->orderBy('id','desc')->take(5)->get();
+        $port = portfolio::with('photo')->orderBy('id','desc')->get();
+        $news = blog::with('photo')->orderBy('id','desc')->take(3)->get();
+        $mission = Facts::where('name','OUR MISSION')->get()->first();
+        $vision = Facts::where('name','OUR VISION')->get()->first();
+        $wedo = Facts::where('name','WHAT WE DO')->get()->first();
+        $back = Facts::where('name','BACKGROUND')->get()->first();
 
 
-         return view('publics.index');
+        return view('publics.index', compact('bestdents','event','test','port','stafs','slider','news','facts','mission','vision','wedo','back'));
+
     }
 
     public function create()
     {
-       
+
 
     }
 
@@ -54,7 +55,7 @@ class PagesController extends Controller
                 $data = $request->all();
                 subscriber::create($data);
                 return redirect('/#sub')->with('success', 'Thanks for Your Subscription');
-    
+
     }
 
     /**
@@ -65,7 +66,7 @@ class PagesController extends Controller
      */
     public function show($id)
     {
-       
+
     }
 
     /**
@@ -89,7 +90,7 @@ class PagesController extends Controller
      */
     public function update(UsersRequest $request, $id)
     {
-     
+
     }
 
     /**
@@ -100,7 +101,7 @@ class PagesController extends Controller
      */
     public function destroy($id)
     {
-      
+
 
     }
 }

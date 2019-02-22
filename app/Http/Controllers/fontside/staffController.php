@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\fontside;
 
 use Illuminate\Http\Request;
-use App\staffs;
-use App\photo;
+use App\model\admin\staffs;
+use App\model\admin\photo;
 use Image;
 use App\Http\Controllers\Controller;
 
 class staffController extends Controller
 {
      public function index()
-    {   
+    {
 
         $sta= staffs::all();
         return view('admins.staffs.index' , compact('sta'));
@@ -34,7 +34,7 @@ class staffController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
+    {
            $this->validate($request, [
            'name' => 'required',
            'surname' => 'required',
@@ -55,11 +55,11 @@ class staffController extends Controller
             $photo = photo::create(['photo_tag'=> $name]);
             $input['photo_id']=$photo->id;
         }
-       
+
 
         staffs::create($input);
         return redirect('staff')->with('success', 'staff Added Succesfully');
-        
+
 
     }
 
@@ -94,7 +94,7 @@ class staffController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
 
           $this->validate($request, [
            'name' => 'required',
@@ -103,20 +103,20 @@ class staffController extends Controller
            'photo_id'=>'required',
            'status'=>'required'
          ]);
-         
+
 
             $sta= staffs::findorfail($id);
 
             $input = $request->all();
 
             if($file = $request->file('photo_id'))
-        {  
+        {
             if (file_exists(public_path()."\images\\". $sta->photo->photo_tag)) {
               unlink(public_path()."\images\\". $sta->photo->photo_tag);
               $photos = photo::findorfail($sta->photo_id);
               $photos->delete();
             }
-              
+
              $name = time() . $file->getClientOriginalName();
              $file->move('images', $name);
              $photo = photo::create(['photo_tag' => $name]);

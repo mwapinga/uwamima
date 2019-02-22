@@ -4,6 +4,7 @@ namespace App\Http\Controllers\fontside;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\model\admin\Massage;
 
 class ContactController extends Controller
 {
@@ -34,8 +35,18 @@ class ContactController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {    $input = $request->all();
+
+        $this->validate($request, [
+          'name' => 'nullable|string|max:255',
+          'email' => 'required|string|email|max:255',
+          'subject'=>'nullable|string|max:255',
+          'message' =>'required|string|max:10000',
+        ]);
+
+        $input = $request->all();
+        Massage::create($input);
+        return redirect()->back()->with('success','Thanks for your message');
     }
 
     /**

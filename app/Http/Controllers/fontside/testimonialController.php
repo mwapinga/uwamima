@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\fontside;
 
 use Illuminate\Http\Request;
-use App\photo;
-use App\testimonial;
+use App\model\admin\Photo;
+use App\model\admin\testimonial;
 use Image;
 use App\Http\Controllers\Controller;
 
 class testimonialController extends Controller
 {
-   
+
     public function index()
-    {   
+    {
 
         $test= testimonial::all();
         return view('admins.testimonial.index' , compact('test'));
@@ -35,12 +35,12 @@ class testimonialController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
+    {
            $this->validate($request, [
            'name' => 'required',
            'surname' => 'required',
            'Testimonial' => 'required',
-           'photo_id'=>'required',
+           'photo_id' => 'required|file|mimes:jpeg,gif,png|max:8000',
            'status'=>'required'
          ]);
 
@@ -48,19 +48,15 @@ class testimonialController extends Controller
 
         if($file = $request->file('photo_id')){
             $name = rand(11111,99999).'_'.time() .'_'. $file->getClientOriginalName();
-            // $resizedImg = Image::make($request->file('photo_id')->getRealPath())->resize(1920,820);
-            // $file->move('images', $name);
-            // $resizedImg = Image::make('images' .$name);
-            // $resizedImg->resize(1920,820);
-            $file->move('images', $name);
-            $photo = photo::create(['photo_tag'=> $name]);
+            $file->move('asset/images', $name);
+            $photo = Photo::create(['photo_tag'=> $name]);
             $input['photo_id']=$photo->id;
         }
-       
+
 
         testimonial::create($input);
         return redirect('testimonial')->with('success', 'Testimonial Added Succesfully');
-        
+
 
     }
 
@@ -95,32 +91,32 @@ class testimonialController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
 
           $this->validate($request, [
             'name' => 'required',
            'surname' => 'required',
            'Testimonial' => 'required',
-           'photo_id'=>'required',
+           'photo_id' => 'nullable|file|mimes:jpeg,gif,png|max:8000',
            'status'=>'required'
          ]);
-         
+
 
             $test= testimonial::findorfail($id);
 
             $input = $request->all();
 
             if($file = $request->file('photo_id'))
-        {  
-            if (file_exists(public_path()."\images\\". $test->photo->photo_tag)) {
-              unlink(public_path()."\images\\". $test->photo->photo_tag);
-              $photos = photo::findorfail($test->photo_id);
+        {
+            if (file_exists(public_path()."\asset\images\\".$test->photo->photo_tag)) {
+              unlink(public_path()."\asset\images\\".$test->photo->photo_tag);
+              $photos = Photo::findorfail($test->photo_id);
               $photos->delete();
             }
-              
+
              $name = time() . $file->getClientOriginalName();
-             $file->move('images', $name);
-             $photo = photo::create(['photo_tag' => $name]);
+             $file->move('asset\images', $name);
+             $photo = Photo::create(['photo_tag' => $name]);
              $input['photo_id']=$photo->id;
 
         }
@@ -141,9 +137,9 @@ class testimonialController extends Controller
     {
         $test= testimonial::findorfail($id);
 
-       if (file_exists(public_path()."\images\\". $test->photo->photo_tag)) {
-              unlink(public_path()."\images\\". $test->photo->photo_tag);
-              $photos = photo::findorfail($test->photo_id);
+       if (file_exists(public_path()."\asset\images\\". $test->photo->photo_tag)) {
+              unlink(public_path()."\asset\images\\". $test->photo->photo_tag);
+              $photos = Photo::findorfail($test->photo_id);
               $photos->delete();
             }
           $test->delete();

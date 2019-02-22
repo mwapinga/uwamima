@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\fontside;
 
 use Illuminate\Http\Request;
-use App\about;
+use App\model\admin\about;
 
 use App\Http\Controllers\Controller;
 
 class adaboutController extends Controller
 {
        public function index()
-    { 
+    {
 
     	$ab= about::all();
 
     	// return $ab;
         return view('admins.About.index', compact('ab'));
-         
+
     }
 
     /**
@@ -58,7 +58,7 @@ class adaboutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
 
     	$ab = about::findorFail($id);
          return view('admins.About.edit', compact('ab'));
@@ -76,7 +76,7 @@ class adaboutController extends Controller
         $this->validate($request, [
              'about' => 'required',
          ]);
-         
+
 
             $ab= about::findorFail($id);
             $input = $request->all();

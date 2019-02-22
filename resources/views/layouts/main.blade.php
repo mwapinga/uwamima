@@ -13,6 +13,10 @@
 <link href="{{ asset('asset/css/responsive.css') }}" rel="stylesheet">
 <link rel="icon" href="{{ asset('asset/images/favicon.png') }}" type="image/x-icon">
 
+    <link href="{{ asset('assets1/css/vendors.css') }}" rel="stylesheet">
+    <!-- Main CSS -->
+    <link href="{{ asset('assets1/css/style.css') }}" rel="stylesheet">
+
 </head>
 
 <!-- page wrapper -->
@@ -21,7 +25,7 @@
     <!-- .preloader -->
     <div class="preloader"></div>
 
-    
+
     <!-- main header area -->
     <header class="main-header header-style-two">
         <!-- main-menu -->
@@ -30,13 +34,13 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="logo-box">
-                            <a href="index-2.html"><figure><img src="{{ asset('asset/images/home/logo1.png') }}" alt=""></figure></a>
+                            <a href="{{ url('/') }}"><figure><img src="{{ asset('asset/images/home/logo1.png') }}" alt=""></figure></a>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12">
                         <div class="menu-area">
                             <nav class="main-menu">
-                                <div class="navbar-header">     
+                                <div class="navbar-header">
                                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
@@ -48,65 +52,36 @@
                                     <ul class="navigation clearfix">
                                         <li class="current dropdown"><a href="{{ url('/') }}">Home</a>
                                         </li>
-                                        <li><a href="about.html">About</a>
+                                        <li><a href="{{ url('About') }}">About Us</a>
                                         </li>
-                                        <li><a href="service.html">Services</a>
+                                        <li><a href="{{ url('/blg') }}">Our Blog </li>
+                                      {{--  <li><a href="{{ url('/shop') }}">Shop</a>
+                                            </li> --}}
+                                        <li><a href="{{ url('/contact') }}">Contact Us</a>
                                         </li>
-                                        <li><a href="gallery.html">Gallery</a>
-                                        </li>
-                                        <li class="dropdown"><a href="#">Pages</a>
-                                            <ul class="submenu">
-                                                <li><a href="team-page.html">Our Team</a></li>
-                                                <li><a href="error-page.html">404 Page</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown"><a href="#">Blog</a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">Our Blog</a></li>
-                                                <li><a href="blog-details.html">Blog Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact Us</a>
-                                        </li>
+                                      {{--   <li><a href="{{ Url('/reportz') }}">ORG Report</a>
+                                        </li> --}}
                                     </ul>
 
 
                                     <!-- mobile menu -->
                                     <ul class="mobile-menu clearfix">
-                                        <li class="current dropdown"><a href="#">Home</a>
-                                            <ul>
-                                                <li><a href="index-2.html">Home Page One</a></li>
-                                                <li><a href="index-two.html">Home Page Two</a></li>
-                                            </ul>
+                                        <li ><a href="{{ url('/') }}">Home</a>
+
                                         </li>
-                                        <li><a href="about.html">About</a>
+                                        <li><a href="{{ url('About Us') }}">About Us</a>
                                         </li>
-                                        <li><a href="service.html">Services</a>
+                                        <li><a href="{{ url('/blg') }}">Our Blog</a>
                                         </li>
-                                        <li><a href="gallery.html">Gallery</a>
+                                        {{-- <li><a href="{{ url('/shop') }}">Shop</a>
+                                        </li> --}}
+                                        <li><a href="{{ Url('/contact') }}">Contact Us</a>
                                         </li>
-                                        <li class="dropdown"><a href="#">Pages</a>
-                                            <ul>
-                                                <li><a href="team-page.html">Our Team</a></li>
-                                                <li><a href="error-page.html">404 Page</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown"><a href="#">Blog</a>
-                                            <ul>
-                                                <li><a href="blog.html">Our Blog</a></li>
-                                                <li><a href="blog-details.html">Blog Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact Us</a>
-                                        </li>
+                                        {{-- <li><a href="{{ Url('/reportz') }}">ORG Report</a>
+                                        </li> --}}
                                     </ul>
-                                </div>
+                                </div> 
                             </nav>
-                            <ul class="header-social">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -125,13 +100,13 @@
            {{--      <div class="footer-logo"><a href="{{ url('/') }}"><figure><img src="{{ asset('asset/images/footer/footer-logo2.png') }}" alt=""></figure></a></div> --}}
                 <ul class="footer-menu">
                     <li class="fa fa-home"><a href="{{ url('/') }}" class="active">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Gallery</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="#">Pages</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                  <li class="fa fa-user" > <a href="{{ route('login') }}">Admin Login</a></li>
+                    <li><a href="{{ url('About') }}">About Us</a></li>
+                    <li><a href="{{ url('/blg') }}">Our Blog</a></li>
+                    {{-- <li><a href="{{ url('/shop') }}">Shop</a></li> --}}
+                    <li><a href="{{ url('/contact') }}">Contact Us</a></li>
+                   {{--  <li><a href="{{ Url('/reportz') }}">ORG Report</a></li> --}}
+
+                  {{-- <li class="fa fa-user" > <a href="{{ route('login') }}">Admin Login</a></li> --}}
                 </ul>
                 <ul class="footer-social">
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -144,13 +119,14 @@
             </div>
         </div>
         <div class="footer-bottom centred">
-            <div class="copyright">Copyright © 2018 <a href="#">Benxi</a>. All Rights Reserved</div>
+            <div class="copyright">Copyright © @php echo  date("Y") @endphp  || UWAMIMA Developed By JOHTECH
+                johtech255@gmail.com  <br> All Rights Reserved</div>
         </div>
     </footer>
     <!-- main-footer-area end -->
 
 
-    
+
 <!--End pagewrapper-->
 
 
@@ -160,7 +136,7 @@
 
 <!--jquery js -->
 
-
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c639ffdedcd5975"></script>
 <script type="text/javascript" src="{{ asset('asset/js/jquery-2.1.4.js') }}"></script>
 <script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('asset/js/owl.carousel.min.js') }}"></script>
@@ -174,8 +150,13 @@
 
 <script src="{{ asset('asset/js/script.js') }}"></script>
 
+     {{-- shop js --}}
+ <script src="{{ asset('assets1/js/vendors.js') }}"></script>
+    
+    <!-- Active JS -->
+    <script src="{{ asset('assets1/js/active.js') }}"></script>
+
 <!-- End of .page_wrapper -->
 </body>
 
-<!-- Mirrored from azim.commonsupport.com/Benxi/index-two.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 05 Jan 2019 05:48:08 GMT -->
 </html>

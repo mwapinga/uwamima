@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\fontside;
 
 use Illuminate\Http\Request;
-use App\staffs;
-use App\about;
-use App\Facts;
+use App\model\admin\staffs;
+use App\model\admin\about;
+use App\model\admin\Facts;
 
 use App\Http\Controllers\Controller;
 
@@ -17,10 +17,15 @@ class AboutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {    $abt = about::all();
-         $stafs = staffs::all();
-         $fact = Facts::all();
-         return view('publics.About_us', compact('stafs','abt','fact'));
+    {
+        //$abt = about::all();
+    //  $stafs = staffs::all();
+    //  $fact = Facts::all();
+    $mission = Facts::where('name','OUR MISSION')->get()->first();
+    $vision = Facts::where('name','OUR VISION')->get()->first();
+    $wedo = Facts::where('name','WHAT WE DO')->get()->first();
+    $back = Facts::where('name','BACKGROUND')->get()->first();
+         return view('publics.About_us', compact('stafs','abt','fact','mission','vision','wedo','back'));
 
          $photo = photo::all();
     }
@@ -54,7 +59,7 @@ class AboutController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**

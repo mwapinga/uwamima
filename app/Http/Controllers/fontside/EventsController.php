@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\fontside;
 
 use Illuminate\Http\Request;
-use App\events;
-use App\photo;
+use App\model\admin\event;
+use App\model\admin\photo;
 use Image;
 
 use App\Http\Controllers\Controller;
@@ -12,9 +12,9 @@ use App\Http\Controllers\Controller;
 class EventsController extends Controller
 {
     public function index()
-    {   
+    {
 
-        $ev= events::all();
+        $ev= event::all();
         return view('admins.events.index' , compact('ev'));
     }
 
@@ -35,7 +35,7 @@ class EventsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
+    {
 
 
            $this->validate($request, [
@@ -54,11 +54,11 @@ class EventsController extends Controller
             $photo = photo::create(['photo_tag'=> $name]);
             $input['photo_id']=$photo->id;
         }
-       
 
-        events::create($input);
+
+        event::create($input);
         return redirect('event')->with('success', 'Event Added Succesfully');
-        
+
 
     }
 
@@ -81,7 +81,7 @@ class EventsController extends Controller
      */
     public function edit($id)
     {
-        $ev= events::findOrFail($id);
+        $ev= event::findOrFail($id);
         return view('admins.events.edit' , compact('ev'));
     }
 
@@ -93,7 +93,7 @@ class EventsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
 
           $this->validate($request, [
             'name' => 'required|max:50',
@@ -102,20 +102,20 @@ class EventsController extends Controller
            'photo_id'=>'required',
            'status'=>'required'
          ]);
-         
 
-            $ev= events::findorfail($id);
+
+            $ev= event::findorfail($id);
 
             $input = $request->all();
 
             if($file = $request->file('photo_id'))
-        {  
+        {
             if (file_exists(public_path()."\images\\". $ev->photo->photo_tag)) {
               unlink(public_path()."\images\\". $ev->photo->photo_tag);
               $photos = photo::findorfail($ev->photo_id);
               $photos->delete();
             }
-              
+
              $name = time() . $file->getClientOriginalName();
              $file->move('images', $name);
              $photo = photo::create(['photo_tag' => $name]);
@@ -137,7 +137,7 @@ class EventsController extends Controller
      */
     public function destroy($id)
     {
-        $ev= events::findorfail($id);
+        $ev= event::findorfail($id);
 
        if (file_exists(public_path()."\images\\". $ev->photo->photo_tag)) {
               unlink(public_path()."\images\\". $ev->photo->photo_tag);
